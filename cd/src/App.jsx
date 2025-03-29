@@ -11,14 +11,38 @@ function App() {
     fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`)
       .then((res) => res.json())
       .then((data) => (
+
         data.results.forEach((e) => {
           fetch(e.url).then((res) => (res.json()))
-          .then((data) => (setedata((e)=>[...e,data])))
+            .then((data) => (setedata((e) => [...e, data])))
         })
+
       ))
 
   }, [])
 
+
+
+  function poketype(type) {
+   console.log(type)
+   
+    switch (type) {
+      case 'normal':
+        return 'green-100';
+
+
+      case 'fire':
+        return '#EE8130';
+
+
+      case 'grass':
+        return 'green-100';
+
+
+    }
+  }
+
+  
 
 
 
@@ -80,22 +104,23 @@ function App() {
             <div key={index} className='block h-[50%] w-[25%] bg-[url(/half.svg)] bg-[rgba(6,14,32,0.8)] bg-no-repeat bg-contain rounded-4xl'>
               <div className='card-poke w-full'>
                 <div className='card-poke-img flex justify-center '>
-                  <img className='w-[60%]' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" />
+                  <img className='w-[60%]' src={anime?.sprites?.other?.['official-artwork'].front_default} />
                 </div>
                 <div className='flex justify-center flex-col gap-2 text-white'>
                   <div className='flex justify-center text-3xl font-semibold'>
                     <h1>{anime.name}</h1>
                   </div>
-                  <div className='flex justify-center gap-5 text-[0.95rem] font-bold'>
-                    <span className='bg-[#66CD32] p-[0.5%] w-[24%] flex justify-center rounded-[5px]'>
-                      GRASS
-                    </span>
-                    <span className='bg-[#AA66CC] p-[0.5%] w-[25%] flex justify-center rounded-[5px]'>
-                      POISON
-                    </span>
+                  <div className={`${anime.types.length >= 2 ? ' flex justify-center' : 'flex justify-center'}  gap-5 text-[0.95rem] font-bold `} >
+                    {
+                      anime.types.map((name) => (
+                        <p className={`bg-${poketype(name?.type?.name)}`}>
+                          {name?.type.name}
+                        </p>
+                      ))
+                    }
                   </div>
                   <div className='flex justify-center gap-24'>
-                    <span>
+                    <span className=''>
                       0.7M
                     </span>
                     <span>
