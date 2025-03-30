@@ -24,32 +24,69 @@ function App() {
 
 
   function poketype(type) {
-   console.log(type)
-   
     switch (type) {
       case 'normal':
-        return 'green-100';
-
+        return 'bg-[#A8A77A]';
 
       case 'fire':
-        return '#EE8130';
-
+        return 'bg-[#EE8130]';
 
       case 'grass':
-        return 'green-100';
+        return 'bg-[#7AC74C]';
 
+      case 'water':
+        return 'bg-[#6390F0]';
+
+      case 'electric':
+        return 'bg-[#F7D02C]';
+
+      case 'ice':
+        return 'bg-[#96D9D6]';
+
+      case 'fighting':
+        return 'bg-[#C22E28]';
+
+      case 'psychic':
+        return 'bg-[#F95587]';
+
+      case 'bug':
+        return 'bg-[#A6B91A]';
+
+      case 'rock':
+        return 'bg-[#B6A136]';
+
+      case 'ghost':
+        return 'bg-[#735797]';
+
+      case 'dragon':
+        return 'bg-[#6F35FC]';
+
+      case 'dark':
+        return 'bg-[#705746]';
+
+      case 'steel':
+        return 'bg-[#B7B7CE]';
+
+      case 'fairy':
+        return 'bg-[#D685AD]';
+
+      case 'flying':
+        return 'bg-[#A98FF3]';
+
+      case 'poison':
+        return 'bg-[#A33EA1]';
+
+      case 'ground':
+        return 'bg-[#E2BF65]'
 
     }
   }
-
-  
-
-
+console.log(edata)
 
   return (
 
     <>
-      <div className='bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)] w-full p-[2%] '>
+      <div className='bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)] w-full p-[2%] saturate-100'>
         <div className='w-full flex justify-center'>
           <div className=''>
             <img src="/poke.svg" className='flex justify-center ' />
@@ -67,7 +104,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div className=' px-[6%] bg-linear-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)]'>
+      <div className='px-[6%] bg-linear-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)]'>
         <div className=' flex justify-center'>
           <div className='w-[40%] '>
             <img src="/treinador-pk.png" />
@@ -79,7 +116,7 @@ function App() {
 
         </div>
       </div>
-      <div className='w-full flex justify-between p-[1%] font-bold text-xl'>
+      <div className='w-full flex justify-between px-[8%] font-bold text-xl bg-black text-white saturate-250'>
         <div className='Seach w-full  p-[1%]'>
           <h1>
             Search by type:
@@ -98,12 +135,12 @@ function App() {
           </div>
         </div>
       </div>
-      <div className='w-full  bg-rose-100 px-[7%] py-[2%] flex gap-5 flex-wrap justify-center'>
+      <div className='w-full  bg-black  py-[2%] flex gap-5 flex-wrap justify-center saturate-170'>
         {
           edata?.map((anime, index) => (
-            <div key={index} className='block h-[50%] w-[25%] bg-[url(/half.svg)] bg-[rgba(6,14,32,0.8)] bg-no-repeat bg-contain rounded-4xl'>
+            <div key={index} className='w-[25%] bg-[url(/half.svg)] bg-[rgba(6,14,32,0.8)] bg-no-repeat bg-contain rounded-4xl p-[1%]'>
               <div className='card-poke w-full'>
-                <div className='card-poke-img flex justify-center '>
+                <div className='card-poke-img flex justify-center h-[30%]'>
                   <img className='w-[60%]' src={anime?.sprites?.other?.['official-artwork'].front_default} />
                 </div>
                 <div className='flex justify-center flex-col gap-2 text-white'>
@@ -113,21 +150,22 @@ function App() {
                   <div className={`${anime.types.length >= 2 ? ' flex justify-center' : 'flex justify-center'}  gap-5 text-[0.95rem] font-bold `} >
                     {
                       anime.types.map((name) => (
-                        <p className={`bg-${poketype(name?.type?.name)}`}>
+                        <p className={`${poketype(name?.type?.name)} p-[0.5%] rounded-xl w-[30%] flex justify-center items-center`}>
                           {name?.type.name}
                         </p>
                       ))
                     }
                   </div>
-                  <div className='flex justify-center gap-24'>
+                  <div className='flex justify-center gap-10'>
+                     
                     <span className=''>
-                      0.7M
+                      {anime.height/10 } M
                     </span>
                     <span>
-                      6.9KG
+                    {anime.weight/10} KG
                     </span>
                   </div>
-                  <div className='flex justify-center gap-8 mt-[-2%] '>
+                  <div className='flex justify-center gap-8 mt-[-1%] '>
                     <div className='flex gap-1 '>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,90.34,90.34,229.66a8,8,0,0,1-11.31,0L26.34,177a8,8,0,0,1,0-11.31L165.66,26.34a8,8,0,0,1,11.31,0L229.66,79A8,8,0,0,1,229.66,90.34Z" opacity="0.2"></path><path d="M235.32,73.37,182.63,20.69a16,16,0,0,0-22.63,0L20.68,160a16,16,0,0,0,0,22.63l52.69,52.68a16,16,0,0,0,22.63,0L235.32,96A16,16,0,0,0,235.32,73.37ZM84.68,224,32,171.31l32-32,26.34,26.35a8,8,0,0,0,11.32-11.32L75.31,128,96,107.31l26.34,26.35a8,8,0,0,0,11.32-11.32L107.31,96,128,75.31l26.34,26.35a8,8,0,0,0,11.32-11.32L139.31,64l32-32L224,84.69Z"></path></svg>
                       <span >
@@ -148,6 +186,7 @@ function App() {
           ))
         }
       </div>
+
     </>
   )
 
