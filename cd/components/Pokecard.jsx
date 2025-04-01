@@ -7,15 +7,17 @@ import { useState, useEffect } from 'react';
 const Pokecard = () => {
 
   const [edata, setedata] = useState([])
-  const [Offset, setOffset] = useState([])
+  const [Offset, setOffset] = useState(0)
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
   let TotalPage = Array.from({ length: Math.ceil(1302 / 20) }, (_, index) => index + 1);
-  const [Page, setPage] = useState(TotalPage.slice(firstindex,lastindex))
+  const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
+  console.log(Page)
 
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?offset=20&limit=20`)
+    setedata([])
+    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`)
       .then((res) => res.json())
       .then((data) => (
         data.results.forEach((e) => {
@@ -23,14 +25,15 @@ const Pokecard = () => {
             .then((data) => (setedata((e) => [...e, data])))
         })
       ))
-
+// window.scrollTo({
+//   top: 0,
+//   behavior: "smooth",
+// })
   }, [Offset])
 
 
 
-useEffect(()=>{
-  setPage(TotalPage.slice(firstindex,lastindex))
-},[firstindex,lastindex])
+
 
 
   function poketype(type) {
@@ -92,25 +95,23 @@ useEffect(()=>{
     }
   }
 
-  function handleclick(i) {
-    if(i===0){
-      return
-    }
-    
-    if(i===9){
-      setfirstindex((pre)=>pre + 5)
-      setlastindex((pre)=>pre + 5)
-
+  function handleclick(anime,i) {
+    setOffset(anime*20)
   
+    if (i === 0) {
+      setfirstindex((pre) => pre - 5)
+      setlastindex((pre) => pre - 5)
+    }
+    if (i === 9) {
+      setfirstindex((pre) => pre + 5)
+      setlastindex((pre) => pre + 5)
     }
 
-    if(i===0){
-      setfirstindex((pre)=>pre - 5)
-      setlastindex((pre)=>pre - 5)
-
-    }
 
   }
+  useEffect(() => {
+    setPage(TotalPage.slice(firstindex, lastindex))
+  }, [firstindex, lastindex])
 
   return (
     <>
@@ -215,7 +216,8 @@ useEffect(()=>{
       </div>
       <div className='w-[100%] h-10 flex justify-center items-center bg-black text-white gap-2'>
         {Page.map((anime, index) => (
-          <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(index)}>{index + 1}</div>
+          <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(anime,index)}>{anime 
+          }</div>
         ))}
       </div>
     </>
