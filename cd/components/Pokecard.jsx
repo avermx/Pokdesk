@@ -164,10 +164,10 @@ const Pokecard = () => {
           </div>
         </div>
       </div>
-      <div className='w-full  bg-black  py-[2%] flex gap-5 flex-wrap justify-center saturate-170'>
+      <div className='w-full  bg-black  py-[2%] flex gap-5 flex-wrap justify-center saturate-150'>
         {
           edata?.map((anime, index) => (
-            <div key={index} className='w-[25%] bg-[url(/half.svg)] bg-[rgba(6,14,32,0.8)] bg-no-repeat bg-contain rounded-4xl p-[1%]'>
+            <div key={index} className='w-[25%] bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_rgb(102,204,51),_rgba(6,14,32,0.8))] bg-no-repeat bg-contain rounded-4xl p-[1%]'>
               <div className='card-poke w-full'>
                 <div className='card-poke-img flex justify-center h-[30%]'>
                   <img className='w-[60%]' src={anime?.sprites?.other?.['official-artwork'].front_default} />
@@ -185,7 +185,7 @@ const Pokecard = () => {
                       ))
                     }
                   </div>
-                  <div className='flex justify-center gap-10'>
+                  <div className='flex justify-center gap-10'>z
 
                     <span className=''>
                       {anime.height / 10} M
