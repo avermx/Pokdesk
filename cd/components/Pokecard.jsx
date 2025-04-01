@@ -95,6 +95,66 @@ const Pokecard = () => {
     }
   }
 
+  function poketypeforbg(type) {
+    switch (type) {
+      case 'normal':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#A8A77A,_rgba(6,14,32,0.8))]';
+
+      case 'fire':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#EE8130,_rgba(6,14,32,0.8))]';
+
+      case 'grass':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#7AC74C,_rgba(6,14,32,0.8))]';
+
+      case 'water':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#6390F0,_rgba(6,14,32,0.8))]';
+
+      case 'electric':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#F7D02C,_rgba(6,14,32,0.8))]';
+
+      case 'ice':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#96D9D6,_rgba(6,14,32,0.8))]';
+
+      case 'fighting':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#C22E28,_rgba(6,14,32,0.8))]';
+
+      case 'psychic':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#F95587,_rgba(6,14,32,0.8))]';
+
+      case 'bug':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#A6B91A,_rgba(6,14,32,0.8))]';
+
+      case 'rock':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#B6A136,_rgba(6,14,32,0.8))]';
+
+      case 'ghost':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#735797,_rgba(6,14,32,0.8))]';
+
+      case 'dragon':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#6F35FC,_rgba(6,14,32,0.8))]';
+
+      case 'dark':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#705746,_rgba(6,14,32,0.8))]';
+
+      case 'steel':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#B7B7CE,_rgba(6,14,32,0.8))]';
+
+      case 'fairy':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#D685AD,_rgba(6,14,32,0.8))]';
+
+      case 'flying':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#A98FF3,_rgba(6,14,32,0.8))]';
+
+      case 'poison':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#A33EA1,_rgba(6,14,32,0.8))]';
+
+      case 'ground':
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#E2BF65,_rgba(6,14,32,0.8))]'
+
+    }
+  }
+
+
   function handleclick(anime,i) {
     setOffset(anime*20)
   
@@ -167,7 +227,8 @@ const Pokecard = () => {
       <div className='w-full  bg-black  py-[2%] flex gap-5 flex-wrap justify-center saturate-150'>
         {
           edata?.map((anime, index) => (
-            <div key={index} className='w-[25%] bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_rgb(102,204,51),_rgba(6,14,32,0.8))] bg-no-repeat bg-contain rounded-4xl p-[1%]'>
+          
+            <div key={index} className={`${poketypeforbg(anime?.types[0]?.type?.name)} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%]`}>
               <div className='card-poke w-full'>
                 <div className='card-poke-img flex justify-center h-[30%]'>
                   <img className='w-[60%]' src={anime?.sprites?.other?.['official-artwork'].front_default} />
@@ -185,7 +246,7 @@ const Pokecard = () => {
                       ))
                     }
                   </div>
-                  <div className='flex justify-center gap-10'>z
+                  <div className='flex justify-center gap-10'>
 
                     <span className=''>
                       {anime.height / 10} M
