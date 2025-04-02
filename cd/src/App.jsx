@@ -1,6 +1,7 @@
 import React from 'react'
 import Pokecard from '../components/Pokecard'
 import {RouterProvider ,createBrowserRouter } from 'react-router-dom'
+import Pokedetails from '../components/Pokedetails'
 
 
 const App = () => {
@@ -9,6 +10,10 @@ const App = () => {
         path: '/',
         element: <Pokecard/>
       },
+      {
+        path: '/pokedetails',
+        element: <Pokedetails/>
+      }
     ])
 
   

@@ -10,32 +10,35 @@ const Pokecard = () => {
   const [Offset, setOffset] = useState(0)
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
-  let TotalPage = Array.from({ length: Math.ceil(1302 / 20) }, (_, index) => index + 1);
+  let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
-  console.log(Page)
+  const [currentbtn, setcurrentbtn] = useState(1)
 
+  const API = `https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`
+
+  const FetchPoke = async () => {
+    try {
+      const res = await fetch(API)
+      const data = await res.json()
+      const detailsofpokemone = data.results.map(async (currentpoke) => {
+        const res = await fetch(currentpoke.url)
+        const data = await res.json()
+        return data;
+      });
+
+      const detilsrepe = await Promise.all(detailsofpokemone)
+      setedata(detilsrepe)
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     setedata([])
-    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`)
-      .then((res) => res.json())
-      .then((data) => (
-        data.results.forEach((e) => {
-          fetch(e.url).then((res) => (res.json()))
-            .then((data) => (setedata((e) => [...e, data])))
-        })
-      ))
-// window.scrollTo({
-//   top: 0,
-//   behavior: "smooth",
-// })
+    FetchPoke();
   }, [Offset])
-
-
-
-
-
-
+  // for dynamic Bg PokeTypes
   function poketype(type) {
     switch (type) {
       case 'normal':
@@ -94,7 +97,7 @@ const Pokecard = () => {
 
     }
   }
-
+  // for dynamic Bg for PokeCard
   function poketypeforbg(type) {
     switch (type) {
       case 'normal':
@@ -154,10 +157,12 @@ const Pokecard = () => {
     }
   }
 
+  //handle On Click Pagenation
 
-  function handleclick(anime,i) {
-    setOffset(anime*20)
-  
+  function handleclick(anime, i) {
+    setOffset(anime * 20)
+    if (anime === 1) setOffset(0)
+    if (i === 0 && firstindex === 0) return 0
     if (i === 0) {
       setfirstindex((pre) => pre - 5)
       setlastindex((pre) => pre - 5)
@@ -166,8 +171,6 @@ const Pokecard = () => {
       setfirstindex((pre) => pre + 5)
       setlastindex((pre) => pre + 5)
     }
-
-
   }
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
@@ -224,12 +227,12 @@ const Pokecard = () => {
           </div>
         </div>
       </div>
-      <div className='w-full  bg-black  py-[2%] flex gap-5 flex-wrap justify-center saturate-150'>
+      <div className='w-full  bg-black  py-[5%] flex gap-6 flex-wrap justify-center saturate-150'>
         {
           edata?.map((anime, index) => (
-          
+
             <div key={index} className={`${poketypeforbg(anime?.types[0]?.type?.name)} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%]`}>
-              <div className='card-poke w-full'>
+              <div className='card-poke w-full '>
                 <div className='card-poke-img flex justify-center h-[30%]'>
                   <img className='w-[60%]' src={anime?.sprites?.other?.['official-artwork'].front_default} />
                 </div>
@@ -277,7 +280,7 @@ const Pokecard = () => {
       </div>
       <div className='w-[100%] h-10 flex justify-center items-center bg-black text-white gap-2'>
         {Page.map((anime, index) => (
-          <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(anime,index)}>{anime 
+          <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(anime, index)}>{anime
           }</div>
         ))}
       </div>
