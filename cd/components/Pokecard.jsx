@@ -176,10 +176,10 @@ const Pokecard = () => {
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
-
+  
   return (
     <>
-      <div className='bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)] w-full p-[2%] saturate-100'>
+      <div className='bg-linear-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] w-full p-[2%] saturate-100'>
         <div className='w-full flex justify-center'>
           <div className=''>
             <img src="/poke.svg" className='flex justify-center ' />
