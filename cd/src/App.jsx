@@ -11,7 +11,7 @@ const App = () => {
         element: <Pokecard/>
       },
       {
-        path: '/pokedetails',
+        path: '/pokedetails/:id',
         element: <Pokedetails/>
       }
     ])
