@@ -14,7 +14,7 @@ const Pokecard = () => {
   let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
-  const [type, settype] = useState([])
+  const [type, settype] = useState('grass')
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`
 
@@ -38,18 +38,19 @@ const Pokecard = () => {
 
   const API2 = `https://pokeapi.co/api/v2/type/${type}`
 
+
   const FetchPoke1 = async () => {
     try {
       const res = await fetch(API2)
       const data = await res.json()
-   
-      data.results.map(async (currentpoke) => {
-        const res = await fetch(currentpoke)
-      console.log(res)
+      const poketypedetails = data.pokemon.map(async (e) => {
+        const res = await fetch(e.pokemon.url)
+        const data1 = await res.json()
+        return data1;
+      })
+      const detailsoftypes = await Promise.all(poketypedetails)
+      setedata(detailsoftypes)
       
-        
-      });
-     
     } catch (error) {
       console.log("Error", error)
     }
