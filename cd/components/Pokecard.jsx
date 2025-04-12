@@ -1,5 +1,5 @@
 import React from 'react'
-
+import pokemonType from '../src/util/pokeTypes';
 
 import { useState, useEffect } from 'react';
 import { Link, Links } from 'react-router-dom';
@@ -14,6 +14,7 @@ const Pokecard = () => {
   let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
+  const [type, settype] = useState([])
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`
 
@@ -35,10 +36,36 @@ const Pokecard = () => {
     }
   }
 
+  const API2 = `https://pokeapi.co/api/v2/type/${type}`
+
+  const FetchPoke1 = async () => {
+    try {
+      const res = await fetch(API2)
+      const data = await res.json()
+   
+      data.results.map(async (currentpoke) => {
+        const res = await fetch(currentpoke)
+      console.log(res)
+      
+        
+      });
+     
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+  useEffect(() => {
+    FetchPoke1();
+  }, [type])
+
+
+
   useEffect(() => {
     setedata([])
     FetchPoke();
+
   }, [Offset])
+
   // for dynamic Bg PokeTypes
   function poketype(type) {
     switch (type) {
@@ -173,10 +200,17 @@ const Pokecard = () => {
       setlastindex((pre) => pre + 5)
     }
   }
+  // Seach by Poke Types 
+  const pokebytype = (e) => {
+    console.log(e);
+    settype(e)
+  }
+
+
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
-  
+
   return (
     <>
       <div className='bg-linear-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] w-full p-[2%] saturate-100'>
@@ -214,8 +248,10 @@ const Pokecard = () => {
           <h1>
             Search by type:
           </h1>
-          <div className='w-full h-10 border rounded-xl'>
-
+          <div className='w-full h-10 border rounded-xl  flex items-center gap-[0.7%] p-0.5 justify-center' >
+            {pokemonType.map((e) => (
+              <img src={e.url} className='h-[85%]' onClick={() => pokebytype(e.name)} />
+            ))}
           </div>
 
         </div>
