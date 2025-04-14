@@ -1,8 +1,7 @@
 import React from 'react'
 import pokemonType from '../src/util/pokeTypes';
-
 import { useState, useEffect } from 'react';
-import { Link, Links } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const Pokecard = () => {
@@ -14,7 +13,7 @@ const Pokecard = () => {
   let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
-  const [type, settype] = useState('grass')
+  const [type, settype] = useState('')
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`
 
@@ -36,8 +35,9 @@ const Pokecard = () => {
     }
   }
 
-  const API2 = `https://pokeapi.co/api/v2/type/${type}`
+  //For Fetch By Pokemon Type
 
+  const API2 = `https://pokeapi.co/api/v2/type/${type}`
 
   const FetchPoke1 = async () => {
     try {
@@ -50,16 +50,18 @@ const Pokecard = () => {
       })
       const detailsoftypes = await Promise.all(poketypedetails)
       setedata(detailsoftypes)
-      
+      console.log(detailsoftypes)
+
     } catch (error) {
       console.log("Error", error)
     }
   }
+  
+// Use Effect For Fetch By Types
   useEffect(() => {
+    setedata([])
     FetchPoke1();
   }, [type])
-
-
 
   useEffect(() => {
     setedata([])
@@ -203,10 +205,8 @@ const Pokecard = () => {
   }
   // Seach by Poke Types 
   const pokebytype = (e) => {
-    console.log(e);
     settype(e)
   }
-
 
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
@@ -214,7 +214,7 @@ const Pokecard = () => {
 
   return (
     <>
-      <div className='bg-linear-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] w-full p-[2%] saturate-100'>
+      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)]  w-full p-[2%] saturate-100">
         <div className='w-full flex justify-center'>
           <div className=''>
             <img src="/poke.svg" className='flex justify-center ' />
@@ -232,7 +232,7 @@ const Pokecard = () => {
           </div>
         </div>
       </div>
-      <div className='px-[6%] bg-linear-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)]'>
+      <div className='px-[6%] bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)]'> 
         <div className=' flex justify-center'>
           <div className='w-[40%] '>
             <img src="/treinador-pk.png" />
@@ -241,17 +241,17 @@ const Pokecard = () => {
             <h1 className='text-4xl '>Experience the thrill of capturing and battling: Be a Pokemon master in PokedExplore!</h1>
             <p className='text-xl'>Discover a world full of adventures with PokedExplore! Now, you can become a true Pokemon trainer by capturing your favorite creatures with just one click. Wait for the pokeball to appear, click and face a surprise Pokemon to add to your pokex. Assemble a powerful deck and challenge your friends in exciting battles! The journey begins now. Get ready to be the best coach of all time!</p>
           </div>
-
         </div>
       </div>
       <div className='w-full flex justify-between px-[8%] font-bold text-xl bg-black text-white saturate-250'>
-        <div className='Seach w-full  p-[1%]'>
+        <div className='Seach w-full p-[1%]'>
           <h1>
             Search by type:
           </h1>
-          <div className='w-full h-10 border rounded-xl  flex items-center gap-[0.7%] p-0.5 justify-center' >
+          <div className='h-[3.06rem] border rounded-xl flex items-center gap-[0.7%] p-0.5 ' >
+            <img className='w-8 bg-cyan-100' src="/download.svg" />
             {pokemonType.map((e) => (
-              <img src={e.url} className='h-[85%]' onClick={() => pokebytype(e.name)} />
+              <img src={e.url} className='h-[65%]' onClick={() => pokebytype(e.name)} />
             ))}
           </div>
 
@@ -260,8 +260,8 @@ const Pokecard = () => {
           <h1>
             Find your pokemon:
           </h1>
-          <div className='w-full h-10 border rounded-xl'>
-
+          <div className='h-[3.06rem] border rounded-xl'>
+          
           </div>
         </div>
       </div>
@@ -288,7 +288,6 @@ const Pokecard = () => {
                       }
                     </div>
                     <div className='flex justify-center gap-10'>
-
                       <span className=''>
                         {anime.height / 10} M
                       </span>
