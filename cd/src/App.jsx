@@ -2,6 +2,8 @@ import React from 'react'
 import Pokecard from '../components/Pokecard'
 import {RouterProvider ,createBrowserRouter } from 'react-router-dom'
 import Pokedetails from '../components/Pokedetails'
+import Pokemontype from '../components/Pokemontype'
+
 
 
 const App = () => {
@@ -13,7 +15,14 @@ const App = () => {
       {
         path: '/pokedetails/:id',
         element: <Pokedetails/>
-      }
+      },
+      {
+        path: '/pokeType/:name',
+        element:<Pokemontype/>
+      },
+
+
+
     ])
 
   
