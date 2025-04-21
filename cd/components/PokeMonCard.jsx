@@ -9,7 +9,7 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
         anime?.types[0]?.type?.name
       )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%]`}
     >
-      <Link to={`pokedetails/${anime.id}`}>
+      <Link to={`/pokedetails/${anime.id}`}>
         <div className="card-poke">
           <div className="card-poke-img flex justify-center h-[30%]">
             <img

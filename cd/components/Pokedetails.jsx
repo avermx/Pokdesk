@@ -125,7 +125,7 @@ const Pokedetails = () => {
               ))}
             </div>
           </div>
-          <div className='flex flex-col gap-[0.8rem] justify-center items-center   w-[40vw]'>
+          <div className='flex flex-col gap-[0.8rem] justify-center items-center w-[40vw]'>
             {Pokedata?.stats?.map((poke) => (
               <div className='h-[10%] w-[40vw] bg-white rounded-4xl max-w-[50vw]'>
                 <div className=' bg-black rounded-full text-[0.9rem] p-1 h-full' style={{ width: `${poke.base_stat/200*100}%`}} >

@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { use } from 'react'
 import pokemonType from '../src/util/pokeTypes';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { PokeMonCard } from './PokeMonCard';
 
 
 const Pokecard = () => {
-
+  const { poke } = useParams()
   const [edata, setedata] = useState([])
   const [Offset, setOffset] = useState(0)
   const [firstindex, setfirstindex] = useState(0)
@@ -57,8 +57,8 @@ const Pokecard = () => {
       console.log("Error", error)
     }
   }
-  
-// Use Effect For Fetch By Types
+
+  // Use Effect For Fetch By Types
   useEffect(() => {
     setedata([])
     FetchPoke1();
@@ -212,6 +212,8 @@ const Pokecard = () => {
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
+console.log(poke)
+console.log(pokemonType)
 
   return (
     <>
@@ -233,7 +235,7 @@ const Pokecard = () => {
           </div>
         </div>
       </div>
-      <div className='px-[6%] bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)]'> 
+      <div className='px-[6%] bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)]'>
         <div className=' flex justify-center'>
           <div className='w-[40%] '>
             <img src="/treinador-pk.png" />
@@ -250,8 +252,11 @@ const Pokecard = () => {
             Search by type:
           </h1>
           <div className='h-[3.06rem] border rounded-xl flex items-center gap-[0.7%] p-0.5 justify-center' >
+
             {pokemonType.map((e) => (
-              <img src={e.url} className='h-[65%]' onClick={() => pokebytype(e.name)} />
+              <Link to={`/pokeType/${e.name}`} className='w-full'>
+                <img src={e.url} className='h-[65%]' onClick={() => pokebytype(e.name)} />
+              </Link>
             ))}
           </div>
 
@@ -261,14 +266,14 @@ const Pokecard = () => {
             Find your pokemon:
           </h1>
           <div className='h-[3.06rem] border rounded-xl'>
-          
+
           </div>
         </div>
       </div>
       <div className='w-full  bg-black  py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>
         {
           edata?.map((anime, index) => (
-            <PokeMonCard anime={anime} index={index} poketypeforbg={poketypeforbg} poketype={poketype}/>
+            <PokeMonCard anime={anime} index={index} poketypeforbg={poketypeforbg} poketype={poketype} />
           ))}
       </div>
       <div className='w-[100%] h-10 flex justify-center items-center bg-black text-white gap-2'>
