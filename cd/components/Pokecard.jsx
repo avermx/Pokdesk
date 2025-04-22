@@ -1,12 +1,11 @@
 import React, { use } from 'react'
 import pokemonType from '../src/util/pokeTypes';
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { PokeMonCard } from './PokeMonCard';
 
 
 const Pokecard = () => {
-  const { poke } = useParams()
   const [edata, setedata] = useState([])
   const [Offset, setOffset] = useState(0)
   const [firstindex, setfirstindex] = useState(0)
@@ -14,9 +13,9 @@ const Pokecard = () => {
   let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
-  const [type, settype] = useState('')
-
-  const API = `https://pokeapi.co/api/v2/pokemon?offset=${Offset}&limit=20`
+  const [searchParams, setSearchParams] = useSearchParams();
+  const t1 = searchParams.get('page')
+  const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
 
   const FetchPoke = async () => {
     try {
@@ -36,39 +35,11 @@ const Pokecard = () => {
     }
   }
 
-  //For Fetch By Pokemon Type
-
-  const API2 = `https://pokeapi.co/api/v2/type/${type}`
-
-  const FetchPoke1 = async () => {
-    try {
-      const res = await fetch(API2)
-      const data = await res.json()
-      const poketypedetails = data.pokemon.map(async (e) => {
-        const res = await fetch(e.pokemon.url)
-        const data1 = await res.json()
-        return data1;
-      })
-      const detailsoftypes = await Promise.all(poketypedetails)
-      setedata(detailsoftypes)
-      console.log(detailsoftypes)
-
-    } catch (error) {
-      console.log("Error", error)
-    }
-  }
-
-  // Use Effect For Fetch By Types
-  useEffect(() => {
-    setedata([])
-    FetchPoke1();
-  }, [type])
-
   useEffect(() => {
     setedata([])
     FetchPoke();
 
-  }, [Offset])
+  }, [Offset,t1])
 
   // for dynamic Bg PokeTypes
   function poketype(type) {
@@ -191,9 +162,16 @@ const Pokecard = () => {
 
   //handle On Click Pagenation
 
-  function handleclick(anime, i) {
-    setOffset(anime * 20)
-    if (anime === 1) setOffset(0)
+  function handleclick(Page, i) {
+    setOffset(Page * 20)
+
+    console.log(Page);
+    
+    setSearchParams({ page: `${Page*20}` });
+    if (Page === 20){
+      setSearchParams({ page: '0' })
+      setOffset(0)
+    } 
     if (i === 0 && firstindex === 0) return 0
     if (i === 0) {
       setfirstindex((pre) => pre - 5)
@@ -212,8 +190,11 @@ const Pokecard = () => {
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
-console.log(poke)
-console.log(pokemonType)
+
+console.log(searchParams)
+
+
+console.log(t1);
 
   return (
     <>
@@ -251,10 +232,9 @@ console.log(pokemonType)
           <h1>
             Search by type:
           </h1>
-          <div className='h-[3.06rem] border rounded-xl flex items-center gap-[0.7%] p-0.5 justify-center' >
-
+          <div className='h-[3.06rem] border rounded-xl flex items-center gap-[0.7%] p-1 justify-center' >
             {pokemonType.map((e) => (
-              <Link to={`/pokeType/${e.name}`} className='w-full'>
+              <Link to={`/pokeType/${e.name}`} className='w-full '>
                 <img src={e.url} className='h-[65%]' onClick={() => pokebytype(e.name)} />
               </Link>
             ))}
@@ -277,9 +257,8 @@ console.log(pokemonType)
           ))}
       </div>
       <div className='w-[100%] h-10 flex justify-center items-center bg-black text-white gap-2'>
-        {Page.map((anime, index) => (
-          <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(anime, index)}>{anime
-          }</div>
+        {Page.map((Page, index) => (
+          <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(Page, index)}>{Page}</div>
         ))}
       </div>
     </>

@@ -8,6 +8,7 @@ import Pokemontype from '../components/Pokemontype'
 
 const App = () => {
     const router = createBrowserRouter([
+      
       {
         path: '/',
         element: <Pokecard/>
@@ -20,12 +21,7 @@ const App = () => {
         path: '/pokeType/:name',
         element:<Pokemontype/>
       },
-
-
-
     ])
-
-  
 
     return (
       <RouterProvider  router ={router}/>
