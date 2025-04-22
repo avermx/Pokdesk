@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React from 'react'
 import pokemonType from '../src/util/pokeTypes';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -7,15 +7,15 @@ import { PokeMonCard } from './PokeMonCard';
 
 const Pokecard = () => {
   const [edata, setedata] = useState([])
-  const [Offset, setOffset] = useState(0)
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
-  let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
+  let TotalPage = Array.from({ length: Math.ceil(1302 / 20) }, (_, index) => index);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
   const t1 = searchParams.get('page')
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
+console.log();
 
   const FetchPoke = async () => {
     try {
@@ -39,7 +39,7 @@ const Pokecard = () => {
     setedata([])
     FetchPoke();
 
-  }, [Offset,t1])
+  }, [t1])
 
   // for dynamic Bg PokeTypes
   function poketype(type) {
@@ -163,15 +163,15 @@ const Pokecard = () => {
   //handle On Click Pagenation
 
   function handleclick(Page, i) {
-    setOffset(Page * 20)
+    console.log(Page,"o");
+      
+      if(Page == 1 ){
+        setSearchParams({ page: 0 })
+      }
+      else{
+        setSearchParams({ page: Page*20 })
+      }
 
-    console.log(Page);
-    
-    setSearchParams({ page: `${Page*20}` });
-    if (Page === 20){
-      setSearchParams({ page: '0' })
-      setOffset(0)
-    } 
     if (i === 0 && firstindex === 0) return 0
     if (i === 0) {
       setfirstindex((pre) => pre - 5)
@@ -190,11 +190,6 @@ const Pokecard = () => {
   useEffect(() => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
-
-console.log(searchParams)
-
-
-console.log(t1);
 
   return (
     <>

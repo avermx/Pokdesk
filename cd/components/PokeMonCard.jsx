@@ -11,6 +11,7 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
     >
       <Link to={`/pokedetails/${anime.id}`}>
         <div className="card-poke">
+          <div className="h-20 w-20 bg-amber-50">{anime.id}</div>
           <div className="card-poke-img flex justify-center h-[30%]">
             <img
               className="w-[60%]"
