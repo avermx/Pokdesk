@@ -9,7 +9,7 @@ const Pokecard = () => {
   const [edata, setedata] = useState([])
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
-  let TotalPage = Array.from({ length: Math.ceil(1302 / 20) }, (_, index) => index);
+  let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index+1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
@@ -107,10 +107,10 @@ console.log();
         return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#A8A77A,_rgba(6,14,32,0.8))]';
 
       case 'fire':
-        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#EE8130,_rgba(6,14,32,0.8))]';
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#EB5B00,_rgba(6,14,32,0.8))]';
 
       case 'grass':
-        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#7AC74C,_rgba(6,14,32,0.8))]';
+        return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#255F38,_rgba(6,14,32,0.8))]';
 
       case 'water':
         return 'bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#6390F0,_rgba(6,14,32,0.8))]';

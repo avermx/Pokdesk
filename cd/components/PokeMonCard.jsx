@@ -7,11 +7,10 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
       key={index}
       className={`${poketypeforbg(
         anime?.types[0]?.type?.name
-      )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%]`}
+      )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%] `}
     >
-      <Link to={`/pokedetails/${anime.id}`}>
-        <div className="card-poke">
-          <div className="h-20 w-20 bg-amber-50">{anime.id}</div>
+      <Link to={`/pokedetails/${anime.id} ` } className=''>
+        <div className="card-poke ">
           <div className="card-poke-img flex justify-center h-[30%]">
             <img
               className="w-[60%]"
@@ -33,7 +32,7 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
                 <p
                   className={`${poketype(
                     name?.type?.name
-                  )} p-[0.5%] rounded-xl w-[30%] flex justify-center items-center`}
+                  )} p-[0.5%] rounded-xl w-[30%] flex justify-center items-center `}
                 >
                   {name?.type.name}
                 </p>

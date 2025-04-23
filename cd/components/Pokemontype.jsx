@@ -100,7 +100,7 @@ const Pokemontype = () => {
         return "bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#EE8130,_rgba(6,14,32,0.8))]";
 
       case "grass":
-        return "bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#7AC74C,_rgba(6,14,32,0.8))]";
+        return "bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#255F38,_rgba(6,14,32,0.8))]";
 
       case "water":
         return "bg-[url(/half.svg),_radial-gradient(80%_80%_at_50%_bottom,_#6390F0,_rgba(6,14,32,0.8))]";
@@ -157,7 +157,7 @@ const Pokemontype = () => {
         return "bg-[radial-gradient(80%_80%_at_50%_bottom,_#EE8130,_rgba(6,14,32,0.8))]";
     
       case "grass":
-        return "bg-[radial-gradient(80%_80%_at_50%_bottom,_#7AC74C,_rgba(6,14,32,0.8))]";
+        // return "bg-[radial-gradient(80%_80%_at_50%_bottom,_#7AC74C,_rgba(6,14,32,0.8))]";
     
       case "water":
         return "bg-[radial-gradient(80%_80%_at_50%_bottom,_#6390F0,_rgba(6,14,32,0.8))]";
@@ -208,11 +208,14 @@ const Pokemontype = () => {
 }
   return (
     <>
+    <div 
+  class="absolute inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+</div>z
     <div className="w-full ">
-    <div className={`h-20 w-full ${poketypeforbg1(name)} justify-center flex items-center content-center text-4xl capitalize`}>
+    <div className={`h-20 w-full  bg-black justify-center flex items-center content-center text-4xl capitalize`}>
       <h1 >{name}</h1>
     </div>
-      <div className="w-full  bg-black  py-[4%] flex gap-6 flex-wrap justify-center saturate-150">
+      <div className="w-full  py-[4%] flex gap-6 flex-wrap justify-center saturate-150">
         {edata?.map((anime, index) => (
           <PokeMonCard
             anime={anime}

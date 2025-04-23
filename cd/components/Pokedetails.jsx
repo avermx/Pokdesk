@@ -87,7 +87,7 @@ const Pokedetails = () => {
     <>
       <div className=' w-full  bg-red-100 flex justify-center flex-col items-center'>
         <div className=' w-full text-white flex justify-center'>
-          <div className='h-[55vh] w-[25%] flex justify-center '>
+          <div className='h-[55vh] w-[25%] flex justify-center border-black border'>
             <img className='' src={Pokedata.sprites?.other?.['official-artwork'].front_default} />
           </div>
         </div>
@@ -128,7 +128,7 @@ const Pokedetails = () => {
             </div>
           </div>
         </div>
-        <div className='w-full text-white flex flex-row capitalize gap-1 bg-amber-600 justify-center gap-[0.6%] p-[1%]'>
+        <div className='w-full text-white flex flex-row capitalize gap-1  justify-center gap-[0.6%] p-[1%]'>
           <div className=' w-[2%] '>
             {poketypeicon.map((e) => (
               <img src={e.url} />
