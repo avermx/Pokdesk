@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import poketypeicon from '../src/util/poketypicon'
 import { useParams } from 'react-router-dom'
+import Evolution from './evolution'
+
 
 const Pokedetails = () => {
   const [Pokedata, setPokedata] = useState([])
@@ -18,7 +20,8 @@ const Pokedetails = () => {
       console.log(error)
     }
   }
-  console.log(Pokedata)
+
+
 
   useEffect(() => {
     FetchData();
@@ -82,13 +85,14 @@ const Pokedetails = () => {
 
     }
   }
-
+ 
+  
   return (
     <>
       <div className=' w-full  bg-red-100 flex justify-center flex-col items-center'>
         <div className=' w-full text-white flex justify-center'>
-          <div className='h-[55vh] w-[25%] flex justify-center border-black border'>
-            <img className='' src={Pokedata.sprites?.other?.['official-artwork'].front_default} />
+          <div className='h-[55vh] w-[25%] flex justify-center '>
+            <img className='' src={Pokedata.sprites?.other?.dream_world?.front_default} />
           </div>
         </div>
         <div className='w-[50%] h-20  flex justify-center items-center content-center '>
@@ -151,6 +155,7 @@ const Pokedetails = () => {
           </div>
         </div>
       </div>
+      <Evolution speciesUrl={Pokedata?.species} pokemonName={Pokedata.name}/>
     </>
   )
 }

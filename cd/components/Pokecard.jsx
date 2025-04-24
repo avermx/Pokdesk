@@ -15,7 +15,7 @@ const Pokecard = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const t1 = searchParams.get('page')
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
-console.log();
+
 
   const FetchPoke = async () => {
     try {
