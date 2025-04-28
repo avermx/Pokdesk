@@ -50,9 +50,9 @@ const Evolution = ({ speciesUrl }) => {
 
   return (
     <>
-      <div className=" justify-center flex">
-        <div className=" h-[30vh] w-[50%] p-[1%]">
-          <h1 className="font-bold">Evolution Chain</h1>
+      <div className=" justify-center flex ">
+        <div className=" h-[33vh] w-[50%] p-[1%]  rounded-2xl">
+          <h1 className="font-bold text-2xl">Evolution Chain</h1>
           <div className="py-2 w-full  ">
             <div className="flex gap-5 items-center justify-evenly w-full ">
               {evolution2[0] != ""
@@ -60,14 +60,14 @@ const Evolution = ({ speciesUrl }) => {
                     (e, i,arr) =>
                       e != "" && (
                         <>
-                          <div key={i} className=" flex flex-col items-center">
+                          <div key={i} className=" flex flex-col items-center  rounded-2xl">
                             <img
                               src={images[i]}
                               alt={e}
                               className="h-[80%] w-40 "
                             />
 
-                            <p className="text-center">{e}</p>
+                            <p className="text-center text-xl">{e}</p>
                             </div>
                             {i !== arr.length - 1 && <FaArrowRight size={30}/>}
                         </>
