@@ -166,7 +166,7 @@ const Pokedetails = () => {
       </div>
       <Evolution speciesUrl={Pokedata?.species} pokemonName={Pokedata.name} />
       <div className=' w-full  flex justify-center'>
-        <div className='w-[50%]  p-[1%] flex gap-5 flex-col justify-center'>
+        <div className='w-[50%]  p-[1%] flex gap-5 flex-col justify-center '>
           <h1 className='text-xl font-bold'>Abilities</h1>
           {Pokedata?.main?.map((e) => (
             <div className='w-[80%] p-[2%] rounded-xl capitalize border border-black '>

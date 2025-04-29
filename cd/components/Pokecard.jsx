@@ -3,20 +3,20 @@ import pokemonType from '../src/util/pokeTypes';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { PokeMonCard } from './PokeMonCard';
-
+import { Seachbar } from './Seachbar';
 
 const Pokecard = () => {
   const [edata, setedata] = useState([])
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
-  let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index+1);
+  let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
   const t1 = searchParams.get('page')
+  const [pokemonName, setpokemonName] = useState()
+  
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
-
-
   const FetchPoke = async () => {
     try {
       const res = await fetch(API)
@@ -38,9 +38,11 @@ const Pokecard = () => {
   useEffect(() => {
     setedata([])
     FetchPoke();
-
   }, [t1])
 
+
+  console.log(pokemonName)
+  
   // for dynamic Bg PokeTypes
   function poketype(type) {
     switch (type) {
@@ -163,14 +165,14 @@ const Pokecard = () => {
   //handle On Click Pagenation
 
   function handleclick(Page, i) {
-    console.log(Page,"o");
-      
-      if(Page == 1 ){
-        setSearchParams({ page: 0 })
-      }
-      else{
-        setSearchParams({ page: Page*20 })
-      }
+    console.log(Page, "o");
+
+    if (Page == 1) {
+      setSearchParams({ page: 0 })
+    }
+    else {
+      setSearchParams({ page: Page * 20 })
+    }
 
     if (i === 0 && firstindex === 0) return 0
     if (i === 0) {
@@ -240,7 +242,7 @@ const Pokecard = () => {
           <h1>
             Find your pokemon:
           </h1>
-  <input type="text"className='h-[3.06rem] border rounded-xl w-full'  />
+          <Seachbar setpokemonName={setpokemonName}/>
         </div>
       </div>
       <div className='w-full  bg-black  py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>
