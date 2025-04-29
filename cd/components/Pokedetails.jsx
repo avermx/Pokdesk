@@ -93,8 +93,7 @@ const Pokedetails = () => {
     }
   }
 
-
-
+  console.log(Pokedata)
 
 
   return (
@@ -167,15 +166,17 @@ const Pokedetails = () => {
       </div>
       <Evolution speciesUrl={Pokedata?.species} pokemonName={Pokedata.name} />
       <div className=' w-full  flex justify-center'>
-        <div className='w-[50%] bg-amber-100 p-[1%] flex gap-5 flex-col'>
+        <div className='w-[50%]  p-[1%] flex gap-5 flex-col justify-center'>
           <h1 className='text-xl font-bold'>Abilities</h1>
           {Pokedata?.main?.map((e) => (
-            <div className='h-20 w-[80%] bg-amber-800 p-[1%] rounded-xl capitalize'>
+            <div className='w-[80%] p-[2%] rounded-xl capitalize border border-black '>
               <h1 className='text-xl'>{e.name}</h1>
-              <h1>{e?.effect_entries[0].effect}</h1>
+              {e.effect_entries?.map((e) => (
+                e.language.name === 'en'?<> <h1 className='text-[0.8rem]'>{e.effect}</h1></>:""
+              ))}
             </div>
           ))}
-        
+
         </div>
       </div>
     </div>

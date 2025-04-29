@@ -193,7 +193,7 @@ const Pokecard = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)]  w-full p-[2%] saturate-100">
+      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] w-full p-[2%] saturate-100">
         <div className='w-full flex justify-center'>
           <div className=''>
             <img src="/poke.svg" className='flex justify-center ' />
@@ -240,9 +240,7 @@ const Pokecard = () => {
           <h1>
             Find your pokemon:
           </h1>
-          <div className='h-[3.06rem] border rounded-xl'>
-
-          </div>
+  <input type="text"className='h-[3.06rem] border rounded-xl w-full'  />
         </div>
       </div>
       <div className='w-full  bg-black  py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>
