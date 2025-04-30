@@ -14,8 +14,13 @@ const Pokecard = () => {
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
   const t1 = searchParams.get('page')
-  const [pokemonName, setpokemonName] = useState()
-  
+  const [pokemonName, setpokemonName] = useState([' '])
+
+
+
+
+
+
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
   const FetchPoke = async () => {
     try {
@@ -41,8 +46,8 @@ const Pokecard = () => {
   }, [t1])
 
 
-  console.log(pokemonName)
-  
+
+
   // for dynamic Bg PokeTypes
   function poketype(type) {
     switch (type) {
@@ -242,7 +247,8 @@ const Pokecard = () => {
           <h1>
             Find your pokemon:
           </h1>
-          <Seachbar setpokemonName={setpokemonName}/>
+          <Seachbar setpokemonName={setpokemonName} />
+          
         </div>
       </div>
       <div className='w-full  bg-black  py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>

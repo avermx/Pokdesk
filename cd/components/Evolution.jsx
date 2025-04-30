@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 const Evolution = ({ speciesUrl }) => {
   const [evolution, setEvolution] = useState();
   const [evolution2, setEvolution2] = useState([]);
   const [images, setImages] = useState([]);
+
 
   useEffect(() => {
     fetch(speciesUrl?.url)

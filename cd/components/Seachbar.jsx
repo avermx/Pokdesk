@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 
-export const Seachbar = ({
-    setpokemonName
-}) => {
+export const Seachbar = ({ setpokemonName }) => {
+    const searchbar = useRef(null)
     const [pokeMonData, setpokeMonData] = useState([])
     const [searched, setSearched] = useState()
     const [searchresult, setSearchResult] = useState([])
@@ -18,18 +17,24 @@ export const Seachbar = ({
     }, []);
 
     setpokemonName(searchresult)
-    
-    useEffect(() => {
-        setSearchResult(
-            pokeMonData.filter((Pokemon) => (
-                Pokemon.name.includes(searched)
-            )))
-    }, [searched])
 
+    useEffect(() => {
+        
+    }, [])
+
+    useEffect(()=>{
+        searchbar.current.addEventListener('focus',()=>{
+            setSearchResult(
+                pokeMonData.filter((Pokemon) => (
+                    Pokemon.name.includes(searched)
+                )))
+        })
+    },[searched])
 
     return (
         <div>
-            <input type="text" className="h-[3.06rem] border rounded-xl w-full" value={searched} onChange={((e) => setSearched(e.target.value))} />
+            <input type="text" className="h-[3.06rem] border rounded-xl w-full" value={searched} onChange={((e) => setSearched(e.target.value))} ref={searchbar}/>
+            {searchresult.map((e) => (<p className='text-[0.9rem]' onClick={() => handleclickSeacrh(e.name)}>{e.name}</p>)).slice(0, 5)}
         </div>
     );
 };
