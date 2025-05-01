@@ -98,10 +98,10 @@ const Pokedetails = () => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <div className=' w-full  bg-gray-200 flex justify-center flex-col items-center'>
+      <div className=' w-full bg-gray-200 flex justify-center flex-col items-center'>
         <div className=' w-full text-white flex justify-center'>
           <div className='h-[55vh] w-[25%] flex justify-center '>
-            <img className='' src={Pokedata.sprites?.other?.dream_world?.front_default} />
+            <img className='' src={Pokedata.sprites?.other?.["official-artwork"].front_default} />
           </div>
         </div>
         <div className='w-[50%] h-20  flex justify-center items-center content-center '>
