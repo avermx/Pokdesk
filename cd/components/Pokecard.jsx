@@ -229,7 +229,7 @@ const Pokecard = () => {
           </div>
         </div>
       </div>
-      <div className='w-full flex justify-between px-[8%] font-bold text-xl bg-black text-white saturate-250'>
+      <div className='w-full flex justify-between px-[8%] font-bold text-xl bg-black text-white saturate-250 z-50 relative'>
         <div className='Seach w-full p-[1%]'>
           <h1>
             Search by type:
@@ -243,15 +243,15 @@ const Pokecard = () => {
           </div>
 
         </div>
-        <div className='find w-full p-[1%]'>
+        <div className='find w-full p-[1%] '>
           <h1>
             Find your pokemon:
           </h1>
           <Seachbar setpokemonName={setpokemonName} />
-          
+
         </div>
       </div>
-      <div className='w-full  bg-black  py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>
+      <div className='w-full bg-black py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>
         {
           edata?.map((anime, index) => (
             <PokeMonCard anime={anime} index={index} poketypeforbg={poketypeforbg} poketype={poketype} />
