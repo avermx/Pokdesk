@@ -7,6 +7,7 @@ import { Seachbar } from './Seachbar';
 
 const Pokecard = () => {
   const [edata, setedata] = useState([])
+  const [filltered, setFilltered] = useState([])
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
   let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
@@ -14,12 +15,7 @@ const Pokecard = () => {
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
   const t1 = searchParams.get('page')
-  const [pokemonName, setpokemonName] = useState([' '])
-
-
-
-
-
+  const [pokemonName, setpokemonName] = useState([''])
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
   const FetchPoke = async () => {
@@ -40,13 +36,31 @@ const Pokecard = () => {
     }
   }
 
+  const API2 = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+  const FetchPoke2 = async () => {
+    try {
+      const res = await fetch(API2)
+      const data = await res.json()
+      setFilltered(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if(pokemonName == ''){
+      fetch();
+      return;
+    } 
+  }, [pokemonName])
+
   useEffect(() => {
     setedata([])
     FetchPoke();
   }, [t1])
 
 
-
+  console.log(filltered)
 
   // for dynamic Bg PokeTypes
   function poketype(type) {
@@ -247,7 +261,7 @@ const Pokecard = () => {
           <h1>
             Find your pokemon:
           </h1>
-          <Seachbar setpokemonName={setpokemonName} />
+          <Seachbar setpokemonName={setpokemonName} FetchPoke2={FetchPoke2}/>
 
         </div>
       </div>
