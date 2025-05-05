@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export const Seachbar = ({ FetchPoke2 }) => {
+export const Seachbar = ({ FetchPoke2,searched,setSearched }) => {
     const searchbar = useRef(null);
     const [isFocused, setisFocused] = useState(false);
     const [pokeMonData, setpokeMonData] = useState([]);
-    const [searched, setSearched] = useState([]);
+    // const [searched, setSearched] = useState([]);
     const [searchresult, setSearchResult] = useState([]);
-   
-
     const API = `https://pokeapi.co/api/v2/pokemon?&limit=100000`;
+
     const fetchPokeMon = async () => {
         const res = await fetch(API);
         const data = await res.json();
@@ -25,20 +24,22 @@ export const Seachbar = ({ FetchPoke2 }) => {
         );
     }, [searched]);
 
-    const handleclickSeacrh = (e)=>{
+    const handleclickSeacrh = (e) => {
+        console.log(e)
         setSearched(e)
-        setisFocused(false)
         FetchPoke2(e)
+        setisFocused(false)
+
     }
     const handleFocus = () => {
         setisFocused(true)
     };
 
     const handleFocusout = () => {
-       setTimeout(() => {
-        setisFocused(false)
-       }, 100);
-     };
+        setTimeout(() => {
+            setisFocused(false)
+        }, 100);
+    };
 
     return (
         <div className="relative ">
@@ -52,17 +53,17 @@ export const Seachbar = ({ FetchPoke2 }) => {
                 onBlur={handleFocusout}
             />
             <div className="absolute w-full flex justify-center ">
-                {isFocused && searched.length > 0 &&(
+                {isFocused && searched.length > 0 && (
                     <div className='relative w-full  border-2 border-gray-200 rounded-b-xl bg-black/70 backdrop-blur-md py-2'>
                         <ul className="gap-1 w-full text-2xl ">
-                            {searchresult.map((e,i) => (
+                            {searchresult.map((e, i) => (
                                 <div
                                     key={i}
                                     className=" cursor-pointer px-2 py-1 hover:bg-gray-500 w-full flex justify-center z-50"
-                                    onClick={ ()=>handleclickSeacrh(e.name)} >
+                                    onClick={() => handleclickSeacrh(e.name)} >
                                     {e.name}
                                 </div>
-                            )).slice(0,5)}
+                            )).slice(0, 5)}
                         </ul>
                     </div>
                 )}

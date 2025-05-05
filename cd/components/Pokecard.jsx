@@ -14,7 +14,9 @@ const Pokecard = () => {
   const [Page, setPage] = useState(TotalPage.slice(firstindex, lastindex))
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searched, setSearched] = useState([]);
   const t1 = searchParams.get('page')
+
 
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
@@ -50,9 +52,12 @@ const Pokecard = () => {
 console.log(edata)
 
 
-  // useEffect(() => {
-  //   if()
-  // }, [])
+useEffect(()=>{
+  if(searched == ''){
+    FetchPoke()
+    return;
+  }
+},[searched])
 
   useEffect(() => {
     setedata([])
@@ -258,7 +263,7 @@ console.log(edata)
           <h1>
             Find your pokemon:
           </h1>
-          <Seachbar FetchPoke2={FetchPoke2} />
+          <Seachbar FetchPoke2={FetchPoke2} setSearched={setSearched} searched={searched}/>
 
         </div>
       </div>
