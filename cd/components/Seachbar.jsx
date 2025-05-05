@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export const Seachbar = ({ setpokemonName ,FetchPoke2}) => {
+export const Seachbar = ({ FetchPoke2 }) => {
     const searchbar = useRef(null);
     const [isFocused, setisFocused] = useState(false);
     const [pokeMonData, setpokeMonData] = useState([]);
@@ -26,12 +26,9 @@ export const Seachbar = ({ setpokemonName ,FetchPoke2}) => {
     }, [searched]);
 
     const handleclickSeacrh = (e)=>{
-        console.log(e);
         setSearched(e)
-        setpokemonName(e);
-        FetchPoke2()
         setisFocused(false)
-        
+        FetchPoke2(e)
     }
     const handleFocus = () => {
         setisFocused(true)
@@ -41,9 +38,7 @@ export const Seachbar = ({ setpokemonName ,FetchPoke2}) => {
        setTimeout(() => {
         setisFocused(false)
        }, 100);
-       
-       
-    };
+     };
 
     return (
         <div className="relative ">

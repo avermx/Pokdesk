@@ -15,7 +15,7 @@ const Pokecard = () => {
   const [currentbtn, setcurrentbtn] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams();
   const t1 = searchParams.get('page')
-  const [pokemonName, setpokemonName] = useState([''])
+
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
   const FetchPoke = async () => {
@@ -27,40 +27,37 @@ const Pokecard = () => {
         const data = await res.json()
         return data;
       });
-
       const detilsrepe = await Promise.all(detailsofpokemone)
       setedata(detilsrepe)
-
     } catch (error) {
       console.log(error);
     }
   }
 
-  const API2 = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-  const FetchPoke2 = async () => {
+
+  const FetchPoke2 = async (e) => {
+      const API2 = `https://pokeapi.co/api/v2/pokemon/${e}`
     try {
       const res = await fetch(API2)
       const data = await res.json()
-      setFilltered(data)
+      setedata([data])
+      
+     
     } catch (error) {
       console.log(error);
     }
   }
+console.log(edata)
 
-  useEffect(() => {
-    if(pokemonName == ''){
-      fetch();
-      return;
-    } 
-  }, [pokemonName])
+
+  // useEffect(() => {
+  //   if()
+  // }, [])
 
   useEffect(() => {
     setedata([])
     FetchPoke();
   }, [t1])
-
-
-  console.log(filltered)
 
   // for dynamic Bg PokeTypes
   function poketype(type) {
@@ -261,7 +258,7 @@ const Pokecard = () => {
           <h1>
             Find your pokemon:
           </h1>
-          <Seachbar setpokemonName={setpokemonName} FetchPoke2={FetchPoke2}/>
+          <Seachbar FetchPoke2={FetchPoke2} />
 
         </div>
       </div>

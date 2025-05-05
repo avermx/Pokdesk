@@ -23,12 +23,12 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
             </div>
             <div
               className={`${
-                anime.types.length >= 2
+                anime?.types?.length >= 2
                   ? " flex justify-center"
                   : "flex justify-center"
               }  gap-5 text-[0.95rem] font-bold `}
             >
-              {anime.types.map((name) => (
+              {anime?.types?.map((name) => (
                 <p
                   className={`${poketype(
                     name?.type?.name
