@@ -7,7 +7,6 @@ import { Seachbar } from './Seachbar';
 
 const Pokecard = () => {
   const [edata, setedata] = useState([])
-  const [filltered, setFilltered] = useState([])
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
   let TotalPage = Array.from({ length: Math.floor(1302 / 20) }, (_, index) => index + 1);
@@ -16,8 +15,6 @@ const Pokecard = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searched, setSearched] = useState([]);
   const t1 = searchParams.get('page')
-
-
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
   const FetchPoke = async () => {
@@ -36,6 +33,12 @@ const Pokecard = () => {
     }
   }
 
+  useEffect(()=>{
+    if(searched == ''){
+      FetchPoke()
+      return;
+    }
+  },[searched])
 
   const FetchPoke2 = async (e) => {
       const API2 = `https://pokeapi.co/api/v2/pokemon/${e}`
@@ -49,15 +52,9 @@ const Pokecard = () => {
       console.log(error);
     }
   }
-console.log(edata)
 
 
-useEffect(()=>{
-  if(searched == ''){
-    FetchPoke()
-    return;
-  }
-},[searched])
+
 
   useEffect(() => {
     setedata([])
