@@ -56,14 +56,14 @@ export const Seachbar = ({ FetchPoke2,searched,setSearched }) => {
                 {isFocused && searched.length > 0 && (
                     <div className='relative w-full  border-2 border-gray-200 rounded-b-xl bg-black/70 backdrop-blur-md py-2'>
                         <ul className="gap-1 w-full text-2xl ">
-                            {searchresult.map((e, i) => (
+                            {searchresult.slice(0, 5).map((e, i) => (
                                 <div
                                     key={i}
                                     className=" cursor-pointer px-2 py-1 hover:bg-gray-500 w-full flex justify-center z-50"
                                     onClick={() => handleclickSeacrh(e.name)} >
                                     {e.name}
                                 </div>
-                            )).slice(0, 5)}
+                            ))}
                         </ul>
                     </div>
                 )}

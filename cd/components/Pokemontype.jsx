@@ -209,7 +209,7 @@ const Pokemontype = () => {
   return (
     <>
       <div
-        class="absolute inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+        class="absolute inset-0 h-full w-full bg-white ">
       </div>z
       <div className="w-full ">
         <div className={`h-20 w-full  bg-black justify-center flex items-center content-center text-4xl capitalize`}>

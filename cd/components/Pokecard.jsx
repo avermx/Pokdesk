@@ -17,6 +17,7 @@ const Pokecard = () => {
   const t1 = searchParams.get('page')
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
+
   const FetchPoke = async () => {
     try {
       const res = await fetch(API)
@@ -52,9 +53,6 @@ const Pokecard = () => {
       console.log(error);
     }
   }
-
-
-
 
   useEffect(() => {
     setedata([])
@@ -213,41 +211,42 @@ const Pokecard = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] w-full p-[2%] saturate-100">
+      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] p-[2%] saturate-100">
         <div className='w-full flex justify-center'>
           <div className=''>
-            <img src="/poke.svg" className='flex justify-center ' />
+            <img src="/poke.svg" className='flex justify-center w-[95%]'/>
           </div>
         </div>
         <div className='front flex justify-center px-[5%]'>
-          <div className=' w-full flex flex-col gap-5 text-white justify-center'>
+          <div className=' flex flex-col gap-5 text-white justify-center w-[80%] '>
             <h1 className='text-7xl font-bold text-white'>Charizard</h1>
-            <p className='text-xl w-[90%]'>
+            <p className='text-[1.12rem]  tracking-normal leading-5  '>
               Charizard, the towering flying and fiery Pokemon, is the ultimate evolution of the adorable Charmander. With its majestic wings and blazing flames, Charizard dominates the skies and inspires respect. His strength and courage are legendary, and his destructive fire is capable of incinerating his opponents. Despite his wild temperament, Charizard is known for forming deep and loyal bonds with his trainers.His imposing presence and flying skills make him a valuable and protective companion on any team.
             </p>
           </div>
-          <div className='img-dragon '>
-            <img src="/charizard.png" className='aspect-square ' />
+          <div className='img-dragon w-[80%]'>
+            <img src="/charizard.png" className='aspect-square '/>
           </div>
         </div>
       </div>
-      <div className='px-[6%] bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)]'>
-        <div className=' flex justify-center'>
-          <div className='w-[40%] '>
+    {/* {bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)]} */}
+      <div className='px-[4%] bg-black flex justify-center pt-20'> 
+        <div className=' flex justify-center gap-5 '>
+          <div className='w-[30%]'>
             <img src="/treinador-pk.png" />
           </div>
-          <div className='w-[60%]  p-[2%] flex flex-col gap-[10%] text-white justify-center'>
-            <h1 className='text-4xl '>Experience the thrill of capturing and battling: Be a Pokemon master in PokedExplore!</h1>
-            <p className='text-xl'>Discover a world full of adventures with PokedExplore! Now, you can become a true Pokemon trainer by capturing your favorite creatures with just one click. Wait for the pokeball to appear, click and face a surprise Pokemon to add to your pokex. Assemble a powerful deck and challenge your friends in exciting battles! The journey begins now. Get ready to be the best coach of all time!</p>
+          <div className='w-[65%] p-[2%] flex flex-col gap-[10%] text-white justify-center '>
+            <h1 className='text-3xl font-semibold'>Experience the thrill of capturing and battling: Be a Pokemon master in PokedExplore!</h1>
+            <p className='text-[1.rem] racking-normal leading-5  '>Discover a world full of adventures with PokedExplore! Now, you can become a true Pokemon trainer by capturing your favorite creatures with just one click. Wait for the pokeball to appear, click and face a surprise Pokemon to add to your pokex. Assemble a powerful deck and challenge your friends in exciting battles! The journey begins now. Get ready to be the best coach of all time!</p>
           </div>
         </div>
       </div>
-      <div className='w-full flex justify-between px-[8%] font-bold text-xl bg-black text-white saturate-250 z-50 relative'>
-        <div className='Seach w-full p-[1%]'>
-          <h1>
+      <div className='w-full flex justify-between px-[10%] font-bold text-xl bg-black text-white saturate-250 z-50 relative '>
+        <div className='Seach w-full p-[1%] '>
+          <h1 className='py-2 font-semibold'>
             Search by type:
           </h1>
-          <div className='h-[3.06rem] border rounded-xl flex items-center gap-[0.7%] p-1 justify-center' >
+          <div className='h-[3.06rem] border rounded-xl flex items-center gap-[0.9%] p-1 justify-center' >
             {pokemonType.map((e) => (
               <Link to={`/pokeType/${e.name}`} className='w-full '>
                 <img src={e.url} className='h-[65%]' onClick={() => pokebytype(e.name)} />
@@ -257,24 +256,27 @@ const Pokecard = () => {
 
         </div>
         <div className='find w-full p-[1%] '>
-          <h1>
+          <h1 className='py-2 font-semibold'>
             Find your pokemon:
           </h1>
           <Seachbar FetchPoke2={FetchPoke2} setSearched={setSearched} searched={searched}/>
 
         </div>
       </div>
-      <div className='w-full bg-black py-[4%] flex gap-6 flex-wrap justify-center saturate-150'>
+      <div className='w-full bg-black py-[2%] flex gap-6 flex-wrap justify-center saturate-150'>
         {
           edata?.map((anime, index) => (
             <PokeMonCard anime={anime} index={index} poketypeforbg={poketypeforbg} poketype={poketype} />
           ))}
       </div>
-      <div className='w-[100%] h-10 flex justify-center items-center bg-black text-white gap-2'>
+      <div className='flex justify-center items-center bg-black text-white gap-[0.5%]'>
         {Page.map((Page, index) => (
           <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(Page, index)}>{Page}</div>
         ))}
       </div>
+    <div className='h-2 w-full bg-black'>
+
+    </div>
     </>
   )
 }

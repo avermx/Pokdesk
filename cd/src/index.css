@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
-*html {
 
-    scroll-behavior: smooth !important;
+
+*html,body{
+
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 100;
+    font-size: larger;
+
 }
 
 /* 

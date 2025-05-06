@@ -18,7 +18,7 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
             />
           </div>
           <div className="flex justify-center flex-col gap-2 text-white">
-            <div className="flex justify-center text-3xl font-semibold">
+            <div className="flex justify-center text-3xl font-semibold capitalize">
               <h1>{anime.name}</h1>
             </div>
             <div
