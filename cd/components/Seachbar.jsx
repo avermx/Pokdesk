@@ -4,7 +4,6 @@ export const Seachbar = ({ FetchPoke2,searched,setSearched }) => {
     const searchbar = useRef(null);
     const [isFocused, setisFocused] = useState(false);
     const [pokeMonData, setpokeMonData] = useState([]);
-    // const [searched, setSearched] = useState([]);
     const [searchresult, setSearchResult] = useState([]);
     const API = `https://pokeapi.co/api/v2/pokemon?&limit=100000`;
 
@@ -55,7 +54,7 @@ export const Seachbar = ({ FetchPoke2,searched,setSearched }) => {
             <div className="absolute w-full flex justify-center ">
                 {isFocused && searched.length > 0 && (
                     <div className='relative w-full  border-2 border-gray-200 rounded-b-xl bg-black/70 backdrop-blur-md py-2'>
-                        <ul className="gap-1 w-full text-2xl ">
+                        <ul className="gap-1 w-full text-2xl z-50">
                             {searchresult.slice(0, 5).map((e, i) => (
                                 <div
                                     key={i}

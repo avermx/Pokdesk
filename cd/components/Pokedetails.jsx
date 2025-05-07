@@ -1,8 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import poketypeicon from '../src/util/poketypicon'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Evolution from './evolution'
+import { FaArrowCircleRight } from "react-icons/fa";
 
 
 const Pokedetails = () => {
@@ -93,9 +94,9 @@ const Pokedetails = () => {
     }
   }
 
-  console.log(Pokedata)
-
-
+  const handleCompare = (name) => {
+    console.log(name)
+  }
   return (
     <div className='flex flex-col gap-4'>
       <div className=' w-full bg-gray-200 flex justify-center flex-col items-center'>
@@ -164,6 +165,14 @@ const Pokedetails = () => {
           </div>
         </div>
       </div>
+      <div className=' w-full h-10 justify-center flex '>
+        <Link className='w-full flex justify-center items-center gap-2' to={`/compare/${Pokedata.name}`}>
+          <div className='  h-full rounded-3xl justify-center items-center flex text-xl' onClick={() => handleCompare(Pokedata.name)}>
+            <h1>"Curious who would win? Compare your favorite Pokémon now!"</h1>
+          </div>
+          <FaArrowCircleRight size={22}/>
+        </Link>
+      </div>
       <Evolution speciesUrl={Pokedata?.species} pokemonName={Pokedata.name} />
       <div className=' w-full  flex justify-center'>
         <div className='w-[50%]  p-[1%] flex gap-5 flex-col justify-center '>
@@ -172,7 +181,7 @@ const Pokedetails = () => {
             <div className='w-[80%] p-[2%] rounded-xl capitalize border border-black '>
               <h1 className='text-xl'>{e.name}</h1>
               {e.effect_entries?.map((e) => (
-                e.language.name === 'en'?<> <h1 className='text-[0.8rem]'>{e.effect}</h1></>:""
+                e.language.name === 'en' ? <> <h1 className='text-[0.8rem]'>{e.effect}</h1></> : ""
               ))}
             </div>
           ))}

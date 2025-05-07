@@ -3,6 +3,7 @@ import Pokecard from '../components/Pokecard'
 import {RouterProvider ,createBrowserRouter } from 'react-router-dom'
 import Pokedetails from '../components/Pokedetails'
 import Pokemontype from '../components/Pokemontype'
+import Compare from '../components/Compare'
 
 
 
@@ -21,6 +22,11 @@ const App = () => {
         path: '/pokeType/:name',
         element:<Pokemontype/>
       },
+      {
+        path: '/Compare/:name',
+        element: <Compare/>
+      },
+
     ])
 
     return (
