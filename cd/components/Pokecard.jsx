@@ -7,10 +7,11 @@ import { Seachbar } from './Seachbar';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const Pokecard = () => {
-  const Page2RefuseRef = useRef()
+
   const [edata, setedata] = useState([])
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
@@ -260,7 +261,7 @@ const Pokecard = () => {
       scrollTrigger: {
         trigger: ".treinador-des",
         scroller: "body",
-        
+
         start: "top 50%",
         end: "top 30%",
       }
@@ -285,16 +286,29 @@ const Pokecard = () => {
       scrollTrigger: {
         trigger: ".treinador-des",
         scroller: "body",
-        markers:true,
+
         start: "top 50%",
       }
     })
 
   }, [])
+  const Page2RefuseRef = useRef()
+  useEffect(() => {
+    const smoother = ScrollSmoother.create({
+      Page2RefuseRef: Page2RefuseRef.current,
+      smooth: 2,
+      effects: true,
+      smoothTouch: 0.1
+    });
+
+  
+  },[]);
+
+
   return (
     <>
-      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] p-[2%] saturate-100">
-        <div className='w-full flex justify-center'>
+      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] p-[2%] saturate-100" ref={Page2RefuseRef}>
+        <div className='w-full flex justify-center '>
           <div className='pokelogo'>
             <img src="/poke.svg" className='flex justify-center w-[80%]' />
           </div>
@@ -335,14 +349,12 @@ const Pokecard = () => {
               </Link>
             ))}
           </div>
-
         </div>
         <div className='find w-full p-[1%] search-by-input'>
           <h1 className='py-2 font-semibold'>
             Find your pokemon:
           </h1>
           <Seachbar FetchPoke2={FetchPoke2} setSearched={setSearched} searched={searched} />
-
         </div>
       </div>
       <div className='w-full bg-black py-[2%] flex gap-6 flex-wrap justify-center saturate-150'>

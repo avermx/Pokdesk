@@ -1,15 +1,46 @@
-import React from "react";
 import { Link } from "react-router";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
+
+
+
 
 export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
+  const maincard = useRef();
+
+
+  useGSAP(() => {
+    gsap.from(maincard.current, {
+      y: 80,
+      duration: 1,
+      opacity: 0,
+      
+      scrollTrigger: {
+        trigger: maincard.current,
+        scroller: "body",
+        markers: true,
+        start: "top 90%",
+        end: "top 70%",
+        scrub: true
+      }
+    })
+  }, [])
+
+  
+
+
+
+
   return (
     <div
+      
       key={index}
       className={`${poketypeforbg(
         anime?.types[0]?.type?.name
       )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%] `}
     >
-      <Link to={`/pokedetails/${anime.id} ` } className=''>
+      <Link to={`/pokedetails/${anime.id} `} >
         <div className="card-poke ">
           <div className="card-poke-img flex justify-center h-[30%]">
             <img
@@ -22,11 +53,10 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
               <h1>{anime.name}</h1>
             </div>
             <div
-              className={`${
-                anime?.types?.length >= 2
-                  ? " flex justify-center"
-                  : "flex justify-center"
-              }  gap-5 text-[0.95rem] font-bold `}
+              className={`${anime?.types?.length >= 2
+                ? " flex justify-center"
+                : "flex justify-center"
+                }  gap-5 text-[0.95rem] font-bold `}
             >
               {anime?.types?.map((name) => (
                 <p
