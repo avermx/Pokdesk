@@ -98,8 +98,8 @@ const Pokedetails = () => {
     console.log(name)
   }
   return (
-    <div className='flex flex-col gap-4'>
-      <div className=' w-full bg-gray-200 flex justify-center flex-col items-center'>
+    <div className='flex flex-col gap-4 bg'>
+      <div className=' w-full  flex justify-center flex-col items-center'>
         <div className=' w-full text-white flex justify-center'>
           <div className='h-[55vh] w-[25%] flex justify-center '>
             <img className='' src={Pokedata.sprites?.other?.["official-artwork"].front_default} />

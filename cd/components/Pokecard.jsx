@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import pokemonType from '../src/util/pokeTypes';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { PokeMonCard } from './PokeMonCard';
 import { Seachbar } from './Seachbar';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const Pokecard = () => {
+  const Page2RefuseRef = useRef()
   const [edata, setedata] = useState([])
   const [firstindex, setfirstindex] = useState(0)
   const [lastindex, setlastindex] = useState(10)
@@ -17,7 +22,6 @@ const Pokecard = () => {
   const t1 = searchParams.get('page')
 
   const API = `https://pokeapi.co/api/v2/pokemon?offset=${t1}&limit=20`
-
   const FetchPoke = async () => {
     try {
       const res = await fetch(API)
@@ -34,21 +38,21 @@ const Pokecard = () => {
     }
   }
 
-  useEffect(()=>{
-    if(searched == ''){
+  useEffect(() => {
+    if (searched == '') {
       FetchPoke()
       return;
     }
-  },[searched])
+  }, [searched])
 
   const FetchPoke2 = async (e) => {
-      const API2 = `https://pokeapi.co/api/v2/pokemon/${e}`
+    const API2 = `https://pokeapi.co/api/v2/pokemon/${e}`
     try {
       const res = await fetch(API2)
       const data = await res.json()
       setedata([data])
-      
-     
+
+
     } catch (error) {
       console.log(error);
     }
@@ -209,33 +213,88 @@ const Pokecard = () => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
 
+
+  useGSAP(() => {
+    gsap.from('.pokelogo', {
+      y: -50,
+      duration: 0.8,
+      delay: 0.1,
+      opacity: 0
+    })
+    gsap.from('.img-dragon', {
+      x: 20,
+      delay: 0.1,
+      duration: 0.8,
+      opacity: 0
+    })
+    gsap.from('.chairzard', {
+      x: -20,
+      delay: 0.1,
+      duration: 0.8,
+      opacity: 0
+    })
+    gsap.from('.chairzard-name', {
+      x: -20,
+      delay: 0.1,
+      duration: 0.8,
+      opacity: 0
+    })
+
+    gsap.from("#treinador", {
+      x: -50,
+      opacity: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: "#treinador",
+        scroller: "body",
+        markers: true,
+        start: "top 50%",
+        end: "top 30%",
+
+      }
+    })
+
+    gsap.from(".treinador-des", {
+      x: 50,
+      duration: 0.8,
+      opacity: 0,
+      scrollTrigger: {
+        trigger: "#treinador",
+        scroller: "body",
+        markers: true,
+        start: "top 50%",
+        end: "top 30%",
+
+      }
+    })
+  }, [])
   return (
     <>
       <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] p-[2%] saturate-100">
         <div className='w-full flex justify-center'>
-          <div className=''>
-            <img src="/poke.svg" className='flex justify-center w-[95%]'/>
+          <div className='pokelogo'>
+            <img src="/poke.svg" className='flex justify-center w-[80%]' />
           </div>
         </div>
         <div className='front flex justify-center px-[5%]'>
           <div className=' flex flex-col gap-5 text-white justify-center w-[80%] '>
-            <h1 className='text-7xl font-bold text-white'>Charizard</h1>
-            <p className='text-[1.12rem]  tracking-normal leading-5  '>
+            <h1 className='text-7xl font-bold text-white chairzard-name'>Charizard</h1>
+            <p className='text-[1.12rem]  tracking-normal leading-5 chairzard'>
               Charizard, the towering flying and fiery Pokemon, is the ultimate evolution of the adorable Charmander. With its majestic wings and blazing flames, Charizard dominates the skies and inspires respect. His strength and courage are legendary, and his destructive fire is capable of incinerating his opponents. Despite his wild temperament, Charizard is known for forming deep and loyal bonds with his trainers.His imposing presence and flying skills make him a valuable and protective companion on any team.
             </p>
           </div>
           <div className='img-dragon w-[80%]'>
-            <img src="/charizard.png" className='aspect-square '/>
+            <img src="/charizard.png" className='aspect-square ' />
           </div>
         </div>
       </div>
-    {/* {bg-linear-to-t from-[rgb(255,131,1)] to-[rgb(255,73,0)]} */}
-      <div className='px-[4%] bg-black flex justify-center pt-20'> 
+
+      <div className='px-[4%] bg-black flex justify-center pt-20 '  >
         <div className=' flex justify-center gap-5 '>
-          <div className='w-[30%]'>
+          <div className='w-[30%]' id='treinador' >
             <img src="/treinador-pk.png" />
           </div>
-          <div className='w-[65%] p-[2%] flex flex-col gap-[10%] text-white justify-center '>
+          <div className='w-[65%] p-[2%] flex flex-col gap-[10%] text-white justify-center treinador-des' >
             <h1 className='text-3xl font-semibold'>Experience the thrill of capturing and battling: Be a Pokemon master in PokedExplore!</h1>
             <p className='text-[1.rem] racking-normal leading-5  '>Discover a world full of adventures with PokedExplore! Now, you can become a true Pokemon trainer by capturing your favorite creatures with just one click. Wait for the pokeball to appear, click and face a surprise Pokemon to add to your pokex. Assemble a powerful deck and challenge your friends in exciting battles! The journey begins now. Get ready to be the best coach of all time!</p>
           </div>
@@ -259,7 +318,7 @@ const Pokecard = () => {
           <h1 className='py-2 font-semibold'>
             Find your pokemon:
           </h1>
-          <Seachbar FetchPoke2={FetchPoke2} setSearched={setSearched} searched={searched}/>
+          <Seachbar FetchPoke2={FetchPoke2} setSearched={setSearched} searched={searched} />
 
         </div>
       </div>
@@ -274,9 +333,9 @@ const Pokecard = () => {
           <div className='h-[2rem] w-[2rem]  rounded-[50%] text-center p-[0.2%] bg-[rgba(6,14,32,0.8)]' key={index} onClick={() => handleclick(Page, index)}>{Page}</div>
         ))}
       </div>
-    <div className='h-2 w-full bg-black'>
+      <div className='h-2 w-full bg-black'>
 
-    </div>
+      </div>
     </>
   )
 }
