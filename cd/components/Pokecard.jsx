@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import pokemonType from '../src/util/pokeTypes';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -247,7 +247,6 @@ const Pokecard = () => {
       scrollTrigger: {
         trigger: "#treinador",
         scroller: "body",
-        markers: true,
         start: "top 50%",
         end: "top 30%",
 
@@ -259,14 +258,38 @@ const Pokecard = () => {
       duration: 0.8,
       opacity: 0,
       scrollTrigger: {
-        trigger: "#treinador",
+        trigger: ".treinador-des",
         scroller: "body",
-        markers: true,
+        
         start: "top 50%",
         end: "top 30%",
-
       }
     })
+
+    gsap.from(".search-by-type", {
+      x: -80,
+      duration: 0.8,
+      opacity: 0,
+      scrollTrigger: {
+        trigger: ".treinador-des",
+        scroller: "body",
+        start: "top 50%",
+      }
+    })
+
+
+    gsap.from(".search-by-input", {
+      x: 80,
+      duration: 0.8,
+      opacity: 0,
+      scrollTrigger: {
+        trigger: ".treinador-des",
+        scroller: "body",
+        markers:true,
+        start: "top 50%",
+      }
+    })
+
   }, [])
   return (
     <>
@@ -301,7 +324,7 @@ const Pokecard = () => {
         </div>
       </div>
       <div className='w-full flex justify-between px-[10%] font-bold text-xl bg-black text-white saturate-250 z-50 relative '>
-        <div className='Seach w-full p-[1%] '>
+        <div className='Seach w-full p-[1%] search-by-type'>
           <h1 className='py-2 font-semibold'>
             Search by type:
           </h1>
@@ -314,7 +337,7 @@ const Pokecard = () => {
           </div>
 
         </div>
-        <div className='find w-full p-[1%] '>
+        <div className='find w-full p-[1%] search-by-input'>
           <h1 className='py-2 font-semibold'>
             Find your pokemon:
           </h1>
