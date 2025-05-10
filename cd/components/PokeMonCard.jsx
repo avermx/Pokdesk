@@ -3,44 +3,35 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 
-
-
-
 export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
   const maincard = useRef();
-
 
   useGSAP(() => {
     gsap.from(maincard.current, {
       y: 80,
       duration: 1,
-      opacity: 0,
-      
+      opacity: 0.8,
+      scale: 0,
+      ease: "power3.out",
       scrollTrigger: {
         trigger: maincard.current,
         scroller: "body",
-        markers: true,
-        start: "top 90%",
-        end: "top 70%",
+        start: "top 180%",
+        end: "top 60%",
         scrub: true
       }
     })
   }, [])
 
-  
-
-
-
-
   return (
     <div
-      
+      ref={maincard}
       key={index}
       className={`${poketypeforbg(
         anime?.types[0]?.type?.name
-      )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%] `}
+      )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%] pokecard`}
     >
-      <Link to={`/pokedetails/${anime.id} `} >
+      <Link to={`/pokedetails/${anime.id} `}  >
         <div className="card-poke ">
           <div className="card-poke-img flex justify-center h-[30%]">
             <img

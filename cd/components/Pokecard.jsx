@@ -7,8 +7,8 @@ import { Seachbar } from './Seachbar';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Pokecard = () => {
 
@@ -214,7 +214,6 @@ const Pokecard = () => {
     setPage(TotalPage.slice(firstindex, lastindex))
   }, [firstindex, lastindex])
 
-
   useGSAP(() => {
     gsap.from('.pokelogo', {
       y: -50,
@@ -261,7 +260,6 @@ const Pokecard = () => {
       scrollTrigger: {
         trigger: ".treinador-des",
         scroller: "body",
-
         start: "top 50%",
         end: "top 30%",
       }
@@ -278,7 +276,6 @@ const Pokecard = () => {
       }
     })
 
-
     gsap.from(".search-by-input", {
       x: 80,
       duration: 0.8,
@@ -286,28 +283,17 @@ const Pokecard = () => {
       scrollTrigger: {
         trigger: ".treinador-des",
         scroller: "body",
-
         start: "top 50%",
       }
     })
 
   }, [])
-  const Page2RefuseRef = useRef()
-  useEffect(() => {
-    const smoother = ScrollSmoother.create({
-      Page2RefuseRef: Page2RefuseRef.current,
-      smooth: 2,
-      effects: true,
-      smoothTouch: 0.1
-    });
 
-  
-  },[]);
 
 
   return (
-    <>
-      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] p-[2%] saturate-100" ref={Page2RefuseRef}>
+    <div className='bg-black'>
+      <div className="bg-gradient-to-t from-[rgb(255,73,0)] to-[rgb(255,131,1)] p-[2%] saturate-100" >
         <div className='w-full flex justify-center '>
           <div className='pokelogo'>
             <img src="/poke.svg" className='flex justify-center w-[80%]' />
@@ -325,7 +311,6 @@ const Pokecard = () => {
           </div>
         </div>
       </div>
-
       <div className='px-[4%] bg-black flex justify-center pt-20 '  >
         <div className=' flex justify-center gap-5 '>
           <div className='w-[30%]' id='treinador' >
@@ -371,7 +356,7 @@ const Pokecard = () => {
       <div className='h-2 w-full bg-black'>
 
       </div>
-    </>
+    </div>
   )
 }
 

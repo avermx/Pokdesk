@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import poketypeicon from '../src/util/poketypicon'
 import { Link, useParams } from 'react-router-dom'
 import Evolution from './evolution'
 import { FaArrowCircleRight } from "react-icons/fa";
+
+
 
 
 const Pokedetails = () => {
@@ -30,6 +32,8 @@ const Pokedetails = () => {
       console.log(error)
     }
   }
+
+
 
   useEffect(() => {
     FetchData();
@@ -157,8 +161,8 @@ const Pokedetails = () => {
           </div>
           <div className='flex flex-col gap-[0.8rem] justify-center items-center w-[40vw]'>
             {Pokedata?.stats?.map((poke) => (
-              <div className='h-[10%] w-[40vw] bg-white rounded-4xl max-w-[50vw]'>
-                <div className=' bg-black rounded-full text-[0.9rem] p-1 h-full' style={{ width: `${poke.base_stat / 200 * 100}%` }} >
+              <div className='h-[10%] w-[40vw] bg-gray-300 rounded-4xl max-w-[50vw]' >
+                <div  className=' bg-black rounded-full text-[0.9rem] p-1 h-full' style={{ width: `${poke.base_stat / 200 * 100}%` }} >
                 </div>
               </div>
             ))}
@@ -170,7 +174,7 @@ const Pokedetails = () => {
           <div className='  h-full rounded-3xl justify-center items-center flex text-xl' onClick={() => handleCompare(Pokedata.name)}>
             <h1>"Curious who would win? Compare your favorite Pokémon now!"</h1>
           </div>
-          <FaArrowCircleRight size={22}/>
+          <FaArrowCircleRight size={22} />
         </Link>
       </div>
       <Evolution speciesUrl={Pokedata?.species} pokemonName={Pokedata.name} />
