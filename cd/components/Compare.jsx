@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
@@ -67,25 +66,29 @@ const Compare = () => {
 
   return (
     <>
-      <div className='h-[100vh] w-[100%]  flex'>
-        <div className='h-[100%] w-[50%] bg-fuchsia-100 p-[1%] justify-center pt-14'>
-          <div className='  w-full flex flex-col items-center gap-5 '>
-            <div className='w-full flex justify-center '>
-              <img className='w-[40%]' src={pokemondata.sprites?.other?.["official-artwork"].front_default} />
+      <div className=' min-h-screen w-full flex flex-col md:flex-row magicpattern1 text-white gap-5'>
+        {/* Left Pokemon */}
+        <div className=' w-full md:w-[50%]  justify-center  md:pt-14 '>
+          <div className=' h-full w-full flex flex-col items-center gap-3 md:gap-5 pt-3'>
+            <div className='w-full flex justify-center'>
+              <img className='w-[60%] sm:w-[50%] md:w-[40%] object-contain' 
+                   src={pokemondata.sprites?.other?.["official-artwork"].front_default}
+                   alt={name} />
             </div>
-            <h1 className='text-3xl'>{name}</h1>
-            <div className='flex gap-3 '>
+            <h1 className='text-xl sm:text-2xl md:text-3xl capitalize'>{name}</h1>
+            <div className='flex gap-2 md:gap-3 w-full justify-center'>
               <div>
-                <div className='text-[1.15rem]'>
-                  {pokemondata?.stats?.map((poke) => (
-                    <p>{poke.base_stat}</p>
+                <div className='text-sm sm:text-base md:text-[1.15rem]'>
+                  {pokemondata?.stats?.map((poke, index) => (
+                    <p key={index}>{poke.base_stat}</p>
                   ))}
                 </div>
               </div>
-              <div className=' flex flex-col gap-[0.8rem] justify-center items-center w-[40vw]'>
-                {pokemondata?.stats?.map((poke) => (
-                  <div className=' h-[2vh] w-[40vw] bg-white rounded-4xl '>
-                    <div className=' bg-black rounded-full text-[0.9rem] p-1 h-full' style={{ width: `${poke.base_stat / 200 * 100}%` }} >
+              <div className='flex flex-col gap-2 md:gap-[0.8rem] justify-center items-center w-[60vw] sm:w-[50vw] md:w-[40vw]'>
+                {pokemondata?.stats?.map((poke, index) => (
+                  <div key={index} className='h-[1.5vh] sm:h-[2vh] w-full bg-gray-100 rounded-4xl'>
+                    <div className='bg-orange-500 rounded-full text-[0.7rem] md:text-[0.9rem] p-1 h-full' 
+                         style={{ width: `${poke.base_stat / 200 * 100}%` }}>
                     </div>
                   </div>
                 ))}
@@ -93,44 +96,58 @@ const Compare = () => {
             </div>
           </div>
         </div>
-        <div className='h-[100%] w-[50%] p-[1%] bg-fuchsia-50 '>
-          <div className='w-full justify-center items-center flex'>
-            <input type="text" className='border border-black w-[60%] p-[1%]' value={searched} onChange={(e) => setSearched(e.target.value)} onFocus={() => handleFocused()} onBlur={() => handleBlur()} />
+
+        {/* Right Pokemon / Search */}
+        <div className='w-full md:w-[50%] p-[1%] mt-6 md:mt-0  sm:border-l-2 border-gray-200 '>
+          <div className='w-full justify-center items-center flex '>
+            <input 
+              type="text" 
+              className='border border-white w-[80%] sm:w-[70%] md:w-[60%] p-[1%] rounded-md' 
+              value={searched} 
+              onChange={(e) => setSearched(e.target.value)} 
+              onFocus={() => handleFocused()} 
+              onBlur={() => handleBlur()} 
+              placeholder="Search Pokémon"
+            />
           </div>
           <div className='flex flex-col items-center relative'>
-            <ul className='w-[60%] bg-amber-100 absolute'>
-              {isFocused ? results.map((e) => (
-                <li className='text-[1.5rem] text-center border cursor-pointer ' onClick={() => handleClick(e.name)}>{e.name} </li>
+            <ul className='w-[80%] sm:w-[70%] md:w-[60%]  absolute z-10'>
+              {isFocused ? results.map((e, index) => (
+                <li key={index} className='text-base sm:text-lg md:text-[1.5rem] text-center cursor-pointer capitalize border-2 border-gray-200  bg-black/70 backdrop-blur-md py-1' 
+                    onClick={() => handleClick(e.name)}>
+                  {e.name}
+                </li>
               )).slice(0, 5) : ''}
             </ul>
           </div>
-              <div className='  w-full flex flex-col items-center gap-5'>
-                <div className='w-full flex justify-center '>
-                  <img className='w-[40%]' src={pokeName?.sprites?.other?.["official-artwork"].front_default} />
+          <div className='flex flex-col items-center gap-3 md:gap-5 mt-6'>
+            <div className='w-full flex justify-center'>
+              <img className='w-[60%] sm:w-[50%] md:w-[40%] object-contain' 
+                   src={pokeName?.sprites?.other?.["official-artwork"].front_default} 
+                   alt={pokeName.name} />
+            </div>
+            <h1 className='text-xl sm:text-2xl md:text-3xl capitalize'>{pokeName.name}</h1>
+            <div className='flex gap-2 md:gap-3 w-full justify-center'>
+              <div>
+                <div className='text-sm sm:text-base md:text-[1.15rem]'>
+                  {pokeName?.stats?.map((poke, index) => (
+                    <p key={index}>{poke.base_stat}</p>
+                  ))}
                 </div>
-                <h1 className='text-3xl'>{pokeName.name}</h1>
-                <div className='flex gap-3 '>
-                  <div>
-                    <div className='text-[1.15rem]'>
-                      {pokeName?.stats?.map((poke) => (
-                        <p>{poke.base_stat}</p>
-                      ))}
+              </div>
+              <div className='flex flex-col gap-2 md:gap-[0.8rem] justify-center items-center w-[60vw] sm:w-[50vw] md:w-[40vw]'>
+                {pokeName?.stats?.map((poke, index) => (
+                  <div key={index} className='h-[1.5vh] sm:h-[2vh] w-full bg-gray-100 rounded-4xl'>
+                    <div className='bg-orange-500 rounded-full text-[0.7rem] md:text-[0.9rem] p-1 h-full' 
+                         style={{ width: `${poke.base_stat / 200 * 100}%` }}>
                     </div>
                   </div>
-                  <div className=' flex flex-col gap-[0.8rem] justify-center items-center w-[40vw]'>
-                    {pokeName?.stats?.map((poke) => (
-                      <div className=' h-[2vh] w-[40vw] bg-white rounded-4xl '>
-                        <div className=' bg-black rounded-full text-[0.9rem] p-1 h-full' style={{ width: `${poke.base_stat / 200 * 100}%` }} >
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-   
-      
+        </div>
+      </div>
     </>
   )
 }

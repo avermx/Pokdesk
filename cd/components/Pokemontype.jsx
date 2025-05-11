@@ -214,12 +214,12 @@ const Pokemontype = () => {
   return (
     <>
       <div
-        className=" h-full w-full ">
+        className={`h-full w-full ${poketypeforbg1(name)} `}  >
       <div className="w-full ">
         <div className={`h-20 w-full justify-center flex items-center content-center text-4xl capitalize`}>
           <h1 >{name}</h1>
         </div>
-        <div className={`w-full ${poketypeforbg1(name)} py-[4%] flex gap-6 flex-wrap justify-center saturate-150`}>
+        <div className={`w-full magicpattern1 py-[4%] flex gap-6 flex-wrap justify-center saturate-150`}>
           {edata?.map((anime, index) => (
             <PokeMonCard
               anime={anime}

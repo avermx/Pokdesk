@@ -52,8 +52,8 @@ const Evolution = ({ speciesUrl }) => {
   return (
     <>
       <div className=" justify-center flex ">
-        <div className=" h-[33vh] w-[50%] p-[1%]  rounded-2xl">
-          <h1 className="font-bold text-2xl">Evolution Chain</h1>
+        <div className="   p-[1%]  rounded-2xl">
+          <h1 className="font-bold text-2xl text-center">Evolution Chain</h1>
           <div className="py-2 w-full  ">
             <div className="flex gap-5 items-center justify-evenly w-full ">
               {evolution2[0] != ""
