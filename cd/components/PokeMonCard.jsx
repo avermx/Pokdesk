@@ -29,46 +29,48 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
       key={index}
       className={`${poketypeforbg(
         anime?.types[0]?.type?.name
-      )} w-[25%]  bg-no-repeat bg-contain rounded-4xl p-[1%] pokecard`}
+      )} w-[90%] mx-auto sm:mx-0 sm:w-[48%] md:w-[31%] lg:w-[25%] bg-no-repeat bg-contain rounded-4xl p-[1%] pokecard`}
     >
       <Link to={`/pokedetails/${anime.id} `}  >
-        <div className="card-poke ">
+        <div className="card-poke">
           <div className="card-poke-img flex justify-center h-[30%]">
             <img
               className="w-[60%]"
               src={anime?.sprites?.other?.["official-artwork"].front_default}
+              alt={anime.name}
             />
           </div>
           <div className="flex justify-center flex-col gap-2 text-white">
-            <div className="flex justify-center text-3xl font-semibold capitalize">
+            <div className="flex justify-center text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold capitalize">
               <h1>{anime.name}</h1>
             </div>
             <div
               className={`${anime?.types?.length >= 2
                 ? " flex justify-center"
                 : "flex justify-center"
-                }  gap-5 text-[0.95rem] font-bold `}
+                }  gap-2 sm:gap-3 md:gap-4 lg:gap-5 text-xs sm:text-sm md:text-base lg:text-[0.95rem] font-bold `}
             >
               {anime?.types?.map((name) => (
                 <p
                   className={`${poketype(
                     name?.type?.name
-                  )} p-[0.5%] rounded-xl w-[30%] flex justify-center items-center `}
+                  )} p-[0.5%] rounded-xl w-[30%] flex justify-center items-center text-center`}
                 >
                   {name?.type.name}
                 </p>
               ))}
             </div>
-            <div className="flex justify-center gap-10">
+            <div className="flex justify-center gap-5 sm:gap-8 md:gap-10 text-sm sm:text-base">
               <span className="">{anime.height / 10} M</span>
               <span>{anime.weight / 10} KG</span>
             </div>
-            <div className="flex justify-center gap-8 mt-[-1%] ">
-              <div className="flex gap-1 ">
+            <div className="flex justify-center gap-4 sm:gap-6 md:gap-8 mt-[-1%]">
+              <div className="flex gap-1 text-sm sm:text-base">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   fill="currentColor"
                   viewBox="0 0 256 256"
                 >
@@ -80,11 +82,12 @@ export const PokeMonCard = ({ poketype, anime, index, poketypeforbg }) => {
                 </svg>
                 <span>Height</span>
               </div>
-              <div className="flex gap-1">
+              <div className="flex gap-1 text-sm sm:text-base">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   fill="currentColor"
                   viewBox="0 0 256 256"
                 >

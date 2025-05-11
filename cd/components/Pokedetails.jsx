@@ -11,7 +11,7 @@ import { FaArrowCircleRight } from "react-icons/fa";
 const Pokedetails = () => {
   const [Pokedata, setPokedata] = useState([])
   const { id } = useParams()
-
+  const [statWidths, setStatWidths] = useState([]);
   const API = `https://pokeapi.co/api/v2/pokemon/${id}`
   const FetchData = async () => {
     try {
@@ -32,12 +32,23 @@ const Pokedetails = () => {
       console.log(error)
     }
   }
-
-
+  const getBarColor = (value) => {
+    if (value >= 150) return 'bg-green-500';     
+    if (value >= 100) return 'bg-lime-400';       
+    if (value >= 50) return 'bg-yellow-400';      
+    return 'bg-red-500';                          
+  };
 
   useEffect(() => {
     FetchData();
   }, [])
+
+  useEffect(() => {
+    if (Pokedata?.stats) {
+      const widths = Pokedata.stats.map(poke => (poke.base_stat / 200) * 100);
+      setTimeout(() => setStatWidths(widths), 100); // short delay to trigger transition
+    }
+  }, [Pokedata]);
 
   function poketype(type) {
     switch (type) {
@@ -102,7 +113,7 @@ const Pokedetails = () => {
     console.log(name)
   }
   return (
-    <div className='flex flex-col gap-4 bg'>
+    <div className='flex flex-col gap-4 magicpattern text-white backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-4 shadow-lg'>
       <div className=' w-full  flex justify-center flex-col items-center'>
         <div className=' w-full text-white flex justify-center'>
           <div className='h-[55vh] w-[25%] flex justify-center '>
@@ -149,21 +160,26 @@ const Pokedetails = () => {
         <div className='w-full text-white flex flex-row capitalize gap-1  justify-center gap-[0.6%] p-[1%]'>
           <div className=' w-[2%] '>
             {poketypeicon.map((e) => (
-              <img src={e.url} />
+              <img src={e.url} / >
             ))}
           </div>
           <div className='w-10 flex flex-col'>
-            <div className='text-[1.22rem]'>
+            <div className='text-[1.22rem] text-white'>
               {Pokedata?.stats?.map((poke) => (
                 <p>{poke.base_stat}</p>
               ))}
             </div>
           </div>
           <div className='flex flex-col gap-[0.8rem] justify-center items-center w-[40vw]'>
-            {Pokedata?.stats?.map((poke) => (
-              <div className='h-[10%] w-[40vw] bg-gray-300 rounded-4xl max-w-[50vw]' >
-                <div  className=' bg-black rounded-full text-[0.9rem] p-1 h-full' style={{ width: `${poke.base_stat / 200 * 100}%` }} >
-                </div>
+            {Pokedata?.stats?.map((poke, index) => (
+              <div
+                key={poke.stat.name}
+                className='h-[10%] w-[40vw] bg-gray-300 rounded-4xl max-w-[50vw]'
+              >
+                <div
+                  className={`rounded-full text-[0.9rem] p-1 h-full transition-all duration-700 ease-in-out ${getBarColor(poke.base_stat)}`}
+                  style={{ width: `${statWidths[index] || 0}%` }}
+                ></div>
               </div>
             ))}
           </div>
@@ -172,7 +188,7 @@ const Pokedetails = () => {
       <div className=' w-full h-10 justify-center flex '>
         <Link className='w-full flex justify-center items-center gap-2' to={`/compare/${Pokedata.name}`}>
           <div className='  h-full rounded-3xl justify-center items-center flex text-xl' onClick={() => handleCompare(Pokedata.name)}>
-            <h1>"Curious who would win? Compare your favorite Pokémon now!"</h1>
+            <h1>Curious who would win? Compare your favorite Pokémon now!</h1>
           </div>
           <FaArrowCircleRight size={22} />
         </Link>
