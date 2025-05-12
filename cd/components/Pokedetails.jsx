@@ -1,8 +1,8 @@
-import React, { useRef } from 'react'
+
 import { useEffect, useState } from 'react'
 import poketypeicon from '../src/util/poketypicon'
 import { Link, useParams } from 'react-router-dom'
-import Evolution from './evolution'
+import Evolution from './Evolution'
 import { FaArrowCircleRight } from "react-icons/fa";
 
 const Pokedetails = () => {
