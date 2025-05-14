@@ -4,6 +4,8 @@ import { PokeMonCard } from "./PokeMonCard";
 
 const Pokemontype = () => {
   const [edata, setedata] = useState();
+  const [loading, setLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const { name } = useParams();
 
   //For Fetch By Pokemon Type
@@ -12,6 +14,7 @@ const Pokemontype = () => {
 
   const FetchPoke1 = async () => {
     try {
+      setLoading(true);
       const res = await fetch(API2);
       const data = await res.json();
       const poketypedetails = data.pokemon.map(async (e) => {
@@ -23,7 +26,9 @@ const Pokemontype = () => {
       setedata(detailsoftypes);
       console.log(detailsoftypes);
     } catch (error) {
-      console.log("Error", error);
+      console.error("Error fetching Pokemon data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,7 +36,24 @@ const Pokemontype = () => {
   useEffect(() => {
     setedata([]);
     FetchPoke1();
+  }, [name]);
+
+  // Handle scroll to show/hide scroll top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   function poketype(type) {
     switch (type) {
@@ -208,29 +230,73 @@ const Pokemontype = () => {
   
   
 
- console.log(name);
  
   
+  // Pokéball-style loader
+  const PokeballLoader = () => (
+    <div className="flex justify-center items-center w-full h-screen">
+      <div className="relative w-20 h-20 animate-spin">
+        {/* Pokeball top */}
+        <div className="absolute top-0 left-0 w-20 h-10 rounded-t-full bg-red-500 border-4 border-black"></div>
+        {/* Pokeball bottom */}
+        <div className="absolute bottom-0 left-0 w-20 h-10 rounded-b-full bg-white border-4 border-black"></div>
+        {/* Pokeball center band */}
+        <div className="absolute top-1/2 left-0 w-20 h-4 -translate-y-1/2 bg-black"></div>
+        {/* Pokeball button */}
+        <div className="absolute top-1/2 left-1/2 w-6 h-6 -translate-x-1/2 -translate-y-1/2 bg-white border-4 border-black rounded-full z-10"></div>
+        <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 bg-gray-300 border-2 border-black rounded-full z-20"></div>
+      </div>
+    </div>
+  );
+
   return (
     <>
-      <div
-        className={`h-full w-full ${poketypeforbg1(name)} `}  >
-      <div className="w-full ">
-        <div className={`h-20 w-full justify-center flex items-center content-center text-4xl capitalize`}>
-          <h1 >{name}</h1>
+      <div className={`h-full w-full ${poketypeforbg1(name)}`}>
+        <div className="w-full">
+          <div className={`h-20 w-full justify-center flex items-center content-center text-4xl capitalize`}>
+            <h1>{name}</h1>
+          </div>
+          <div className={`w-full bg py-[4%] flex gap-6 flex-wrap justify-center saturate-150`}>
+            {loading ? (
+              <PokeballLoader />
+            ) : (
+              edata?.map((anime, index) => (
+                <PokeMonCard
+                  key={anime.id}
+                  anime={anime}
+                  index={index}
+                  poketypeforbg={poketypeforbg}
+                  poketype={poketype}
+                />
+              ))
+            )}
+          </div>
         </div>
-        <div className={`w-full magicpattern1 py-[4%] flex gap-6 flex-wrap justify-center saturate-150`}>
-          {edata?.map((anime, index) => (
-            <PokeMonCard
-              anime={anime}
-              index={index}
-              poketypeforbg={poketypeforbg}
-              poketype={poketype}
+      </div>
+
+      {/* Floating Go to Top button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-8 right-8 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${poketype(name)} text-white`}
+          aria-label="Scroll to top"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
             />
-          ))}
-        </div>
-      </div>
-      </div>
+          </svg>
+        </button>
+      )}
     </>
   );
 };

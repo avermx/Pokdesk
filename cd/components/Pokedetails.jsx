@@ -1,7 +1,6 @@
-
 import { useEffect, useState } from 'react'
 import poketypeicon from '../src/util/poketypicon'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import Evolution from './Evolution'
 import { FaArrowCircleRight } from "react-icons/fa";
 
@@ -9,6 +8,7 @@ const Pokedetails = () => {
   const [Pokedata, setPokedata] = useState([])
   const { id } = useParams()
   const [statWidths, setStatWidths] = useState([]);
+  const navigate = useNavigate();
   const API = `https://pokeapi.co/api/v2/pokemon/${id}`
   const FetchData = async () => {
     try {
@@ -106,11 +106,19 @@ const Pokedetails = () => {
     }
   }
 
-  const handleCompare = (name) => {
-    console.log(name)
-  }
+console.log(Pokedata)
   return (
-    <div className='flex flex-col gap-4 magicpattern1 text-white backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-2 md:p-4 shadow-lg'>
+    <div className='flex flex-col gap-4 bg text-white backdrop-blur-lg bg-white/10 border border-white/20  p-2 md:p-4 shadow-lg'>
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className='flex items-center gap-2 w-fit px-4 py-2 mb-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400'
+      >
+        <svg className='w-5 h-5' fill='none' stroke='currentColor' strokeWidth='2' viewBox='0 0 24 24'>
+          <path strokeLinecap='round' strokeLinejoin='round' d='M15 19l-7-7 7-7' />
+        </svg>
+        Back
+      </button>
       <div className='w-full flex justify-center flex-col items-center'>
         <div className='w-full text-white flex justify-center'>
           <div className='h-[30vh] sm:h-[40vh] md:h-[55vh] w-[50%] sm:w-[40%] md:w-[30%] lg:w-[25%] flex justify-center'>
@@ -155,16 +163,17 @@ const Pokedetails = () => {
             </div>
           </div>
         </div>
-        <div className='w-full text-white flex flex-row capitalize gap-1 justify-center gap-[0.6%] p-[1%]'>
-          <div className='w-[2%] hidden sm:block'>
+          {/* Stats Section */}
+        <div className='w-full text-white flex flex-row capitalize gap-2 justify-center p-[1%]'>
+          <div className='w-[2%] hidden sm:block '>
             {poketypeicon.map((e, index) => (
-              <img key={index} src={e.url} alt="type icon" />
+              <img key={index} src={e.url} alt="type icon" className="w-8 h-8 sm:w-8 sm:h-8 my-[10px] bg-gray-300 rounded-xl" />
             ))}
           </div>
           <div className='w-8 md:w-10 flex flex-col'>
             <div className='text-sm md:text-base lg:text-lg text-white'>
               {Pokedata?.stats?.map((poke, index) => (
-                <p key={index}>{poke.base_stat}</p>
+                <p key={index} className="py-1 sm:py-2">{poke.base_stat}</p>
               ))}
             </div>
           </div>
@@ -172,7 +181,7 @@ const Pokedetails = () => {
             {Pokedata?.stats?.map((poke, index) => (
               <div
                 key={poke.stat.name}
-                className='h-[10%] w-full bg-gray-300 rounded-4xl max-w-full'
+                className='h-[10%] w-full bg-gray-300/30 rounded-4xl max-w-full overflow-hidden'
               >
                 <div
                   className={`rounded-full text-[0.7rem] md:text-[0.9rem] p-1 h-full transition-all duration-700 ease-in-out ${getBarColor(poke.base_stat)}`}
@@ -184,11 +193,14 @@ const Pokedetails = () => {
         </div>
       </div>
       <div className='w-full h-10 justify-center flex'>
-        <Link className='w-full flex justify-center items-center gap-2' to={`/compare/${Pokedata.name}`}>
-          <div className='h-full rounded-3xl justify-center items-center flex text-sm sm:text-base md:text-xl px-2 text-center' onClick={() => handleCompare(Pokedata.name)}>
-            <h1>Curious who would win? Compare your favorite Pokémon now!</h1>
+        <Link 
+          className='w-fit flex justify-center items-center gap-2 hover:bg-white/20 transition-all duration-300 rounded-lg p-2 cursor-pointer' 
+          to={`/compare/${Pokedata.name}`}
+        >
+          <div className='h-full rounded-3xl justify-center items-center flex text-sm sm:text-base md:text-xl px-2 text-center'>
+            <h1 className='hover:text-blue-300 transition-colors duration-300'>Compare your favorite Pokémon now!</h1>
           </div>
-          <FaArrowCircleRight size={18} className="md:text-[22px]" />
+          <FaArrowCircleRight size={18} className="md:text-[22px] hover:scale-110 transition-transform duration-300" />
         </Link>
       </div>
       <div className="w-full flex justify-center">
@@ -198,17 +210,26 @@ const Pokedetails = () => {
       </div>
       <div className='w-full flex justify-center'>
         <div className='w-full sm:w-[80%] md:w-[70%] lg:w-[50%] p-[1%] flex gap-3 md:gap-5 flex-col justify-center'>
-          <h1 className='text-lg md:text-xl font-bold'>Abilities</h1>
-          {Pokedata?.main?.map((e, index) => (
-            <div key={index} className='w-full sm:w-[90%] md:w-[80%] p-[2%] rounded-xl capitalize'>
-              <h1 className='text-lg md:text-xl'>{e.name}</h1>
-              {e.effect_entries?.map((effect, idx) => (
-                effect.language.name === 'en' ? <h1 key={idx} className='text-[0.7rem] sm:text-[0.8rem]'>{effect.effect}</h1> : ""
-              ))}
-            </div>
-          ))}
+          <h1 className='text-lg md:text-xl font-bold text-center sm:text-left mb-2'>Abilities</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {Pokedata?.main?.map((e, index) => (
+              <div key={index} className='bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex flex-col gap-2 shadow-lg hover:scale-[1.03] hover:bg-white/20 transition-all duration-300'>
+                <div className="flex items-center gap-2 mb-1">
+                  <svg className="w-6 h-6 text-blue-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20.5C7.305 20.5 3.5 16.695 3.5 12S7.305 3.5 12 3.5 20.5 7.305 20.5 12 16.695 20.5 12 20.5z" /></svg>
+                  <h2 className='text-lg md:text-xl font-semibold capitalize'>{e.name}</h2>
+                </div>
+                <div className="text-gray-200 text-[0.95rem] md:text-base leading-relaxed">
+                  {e.effect_entries?.map((effect, idx) => (
+                    effect.language.name === 'en' ? <p key={idx}>{effect.effect}</p> : null
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+    
+
     </div>
   )
 }
