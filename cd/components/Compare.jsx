@@ -27,8 +27,11 @@ const Compare = () => {
       setSelectedIndex(-1);
     }, 150);
   }
+ 
 
   const handleSuggestionClick = (pokemonName) => {
+    console.log(pokemonName)
+    
     setSearched(pokemonName);
     fetchName(pokemonName);
     setisFocused(false);
@@ -240,19 +243,19 @@ const Compare = () => {
               {isFocused && searched?.trim() !== '' && (
                 <div className='absolute top-full left-1/2 transform -translate-x-1/2 w-[80%] sm:w-[70%] md:w-[60%] z-10 mt-1'>
                   <ul className='bg-black/70 backdrop-blur-md rounded-lg overflow-hidden'>
-                    {results.slice(0, 5).map((e, index) => (
+                    {results.slice(0, 5).map((pokemon, index) => (
                       <li 
-                        key={index} 
+                        key={index} onClick={()=>handleSuggestionClick(pokemon.name)}
                         className={`text-base sm:text-lg md:text-[1.5rem] text-center cursor-pointer capitalize border-b border-gray-700 py-2 px-4 hover:bg-gray-700 transition-colors ${
                           index === selectedIndex ? 'bg-gray-700' : ''
                         }`}
                         onMouseDown={(e) => {
                           e.preventDefault();
-                          handleSuggestionClick(e.name);
+                          handleSuggestionClick(pokemon.name);
                         }}
                         onMouseEnter={() => setSelectedIndex(index)}
                       >
-                        {e.name}
+                        {pokemon.name}
                       </li>
                     ))}
                   </ul>
