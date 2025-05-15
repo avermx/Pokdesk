@@ -103,7 +103,7 @@ const Compare = () => {
     }
     setResult(
       pokemonData2.filter((Pokemon) => 
-        Pokemon.name.toLowerCase().includes(searched.toLowerCase())
+        Pokemon.name.includes(searched)
       )
     );
   }, [searched, pokemonData2])
